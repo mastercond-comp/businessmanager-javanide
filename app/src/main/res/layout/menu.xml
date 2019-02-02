@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+ <!-- КОД БОКОВОГО НАВИГАЦИОННОГО МЕНЮ (РАСПОЛАГАТЬ В САМОМ КОНЦЕ FRAMELAYOUT) --> 
+          
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/ScrollViewMENUStyle" 
+        android:id="@+id/MenuLayout">
+        
+              <LinearLayout style="@style/LinearLayoutMENUStyle">
+                     
+                     <!-- ПЕРВЫЕ ДВА СИМВОЛА В ЦВЕТЕ УКАЗЫВАЮТ НА ПРОЗРАЧНОСТЬ --> 
+                     
+              <Button
+              style="@style/ButtonMENUStyle"
+              android:id="@+id/MenuButton0"             
+              android:text="   Рабочий стол"
+              android:drawableLeft="@drawable/ic_television_guide"
+              /> 
+              
+              <Button
+              style="@style/ButtonMENUStyle"
+              android:id="@+id/MenuButton1"             
+              android:text="   Сделки"
+              android:drawableLeft="@drawable/ic_package"
+              /> 
+              
+              <Button
+              style="@style/ButtonMENUStyle"
+              android:id="@+id/MenuButton2"             
+              android:text="   Контрагенты"
+              android:drawableLeft="@drawable/ic_account_multiple" 
+              /> 
+              
+              <Button
+              style="@style/ButtonMENUStyle"
+              android:id="@+id/MenuButton3"             
+              android:text="   Мои организации" 
+              android:drawableLeft="@drawable/ic_clapperboard"
+              /> 
+              
+               <Button
+              style="@style/ButtonMENUStyle"
+              android:id="@+id/MenuButton4"             
+              android:text="   Товары и услуги" 
+              android:drawableLeft="@drawable/ic_cube_outline"
+              /> 
+              
+              
+               <Button
+              style="@style/ButtonMENUStyle"
+              android:id="@+id/MenuButton5"             
+              android:text="   Сотрудники"
+              android:drawableLeft="@drawable/ic_ticket_account" 
+              /> 
+              
+              
+              <Button
+              style="@style/ButtonMENUStyle"
+              android:id="@+id/MenuButton6"             
+              android:text="   Мини-склад" 
+              android:drawableLeft="@drawable/ic_store"
+              /> 
+              
+               <Button
+              style="@style/ButtonMENUStyle"
+              android:id="@+id/MenuButton7"             
+              android:text="   Финансы"
+              android:drawableLeft="@drawable/ic_cash_100" 
+              /> 
+              
+               <Button
+              style="@style/ButtonMENUStyle"
+              android:id="@+id/MenuButton8"             
+              android:text="   Нормативные документы"
+              android:drawableLeft="@drawable/ic_cash_100" 
+              /> 
+              
+               <Button
+              style="@style/ButtonMENUStyle"
+              android:id="@+id/MenuButton12"             
+              android:text="   Заметки"
+              android:drawableLeft="@drawable/ic_cash_100" 
+              /> 
+              
+               <Button
+              style="@style/ButtonMENUStyle"
+              android:id="@+id/MenuButton9"             
+              android:text="   Сайты" 
+              android:drawableLeft="@drawable/ic_responsive"
+              /> 
+              
+               <Button
+              style="@style/ButtonMENUStyle"
+              android:id="@+id/MenuButton10"             
+              android:text="   Синхронизация" 
+              android:drawableLeft="@drawable/ic_server_network"
+              /> 
+              
+               <Button
+              style="@style/ButtonMENUStyle"
+              android:id="@+id/MenuButton11"             
+              android:text="   Настройки" 
+              android:drawableLeft="@drawable/ic_cog"
+              /> 
+              
+                    
+         </LinearLayout> 
+         </ScrollView>
+         
+         <!-- КОНЕЦ КОД МЕНЮ --> 

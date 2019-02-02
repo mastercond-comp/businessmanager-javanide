@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="vertical"
+     android:background="#55e8f5e9"
+     android:id="@+id/FragmentRoot"
+     >
+     
+                <LinearLayout android:id="@+id/LLLine1" style="@style/LinearLayoutLineStyle">
+     
+                      <LinearLayout style="@style/LinearLayoutElementStyle">
+                      
+                      <TextView style="@style/ZagolovokStyle"
+                           android:text="Сделки в работе" />
+     
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Список текущих сделок" />
+                      </LinearLayout>   
+                      
+                      
+                      <LinearLayout style="@style/LinearLayoutElementStyle">
+                      
+                          <TextView style="@style/ZagolovokStyle"
+                           android:text="Завершенные сделки" />
+     
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:text="Список завершенных сделок" />
+                      </LinearLayout>   
+                      
+                      
+                      
+                      <LinearLayout style="@style/LinearLayoutElementStyle">
+                           
+                         <TextView style="@style/ZagolovokStyle"
+                           android:text="Сводные данные" />
+                           
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:text="Оборот, налоги, расходы, прибыль." />
+                      </LinearLayout>  
+                      
+                       <LinearLayout style="@style/LinearLayoutElementStyle">
+                        
+                         <TextView style="@style/ZagolovokStyle"
+                           android:text="Сотрудники" />
+     
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:text="Личное дело, эффективность, доход" />
+                      </LinearLayout>   
+                       
+                      
+                         </LinearLayout>  
+                      
+                      
+                      
+                      
+                  <LinearLayout android:id="@+id/LLLine2" style="@style/LinearLayoutLineStyle">
+     
+     
+                      <LinearLayout style="@style/LinearLayoutElementStyle">
+                        
+                         <TextView style="@style/ZagolovokStyle"
+                           android:text="Заканчивающиеся товары на мини-складе" />
+     
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:text="Список товаров, которые следует закупить" />
+                      </LinearLayout>   
+                        
+                      
+                      
+                      <LinearLayout style="@style/LinearLayoutElementStyle">
+                        
+                         <TextView style="@style/ZagolovokStyle"
+                           android:text="Потенциальные клиенты" />
+     
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:text="Кому сделаны предложения" />
+                      </LinearLayout>   
+                        
+                      
+                      
+                      
+                     <LinearLayout style="@style/LinearLayoutElementStyle">
+                        
+                         <TextView style="@style/ZagolovokStyle"
+                           android:text="Воронка продаж" />
+     
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:text="График: Звонки - Направлено предложение - Заключен договор, в работе - Договор завершен успешно - Проблемы при исполнении договора - Долгосрочный договор" />
+                      </LinearLayout>   
+                       
+                       
+                       <LinearLayout style="@style/LinearLayoutElementStyle">
+                        
+                         <TextView style="@style/ZagolovokStyle"
+                           android:text="Финансы" />
+     
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:text="Мы должны, нам должны" />
+                      </LinearLayout>   
+                       
+                                      
+               </LinearLayout>
+               
+               
+               
+               
+                <LinearLayout android:id="@+id/LLLine3"  style="@style/LinearLayoutLineStyle">
+     
+     
+                      <LinearLayout style="@style/LinearLayoutElementStyle">
+                        
+                         <TextView style="@style/ZagolovokStyle"
+                           android:text="Сделки с проблемами" />
+     
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:text="Список сделок с возникшими проблемами (технический характер)"/>
+                      </LinearLayout>  
+                      
+                      
+                       <LinearLayout style="@style/LinearLayoutElementStyle">
+                        
+                         <TextView style="@style/ZagolovokStyle"
+                           android:text="Деловой календарь" />
+     
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:text="Деловой календарь с событиями"/>
+                      </LinearLayout>  
+                      
+                        <LinearLayout style="@style/LinearLayoutElementStyle">
+                        
+                         <TextView style="@style/ZagolovokStyle"
+                           android:text="Должники и проблемные клиенты" />
+     
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:text="Список мудаков, с которыми нельзя работать или требуется работать осторожно"/>
+                      </LinearLayout>  
+                      
+                      
+                      
+                      
+                        <LinearLayout style="@style/LinearLayoutElementStyle">
+                        
+                         <TextView style="@style/ZagolovokStyle"
+                           android:text="Нормативные документы" />
+     
+                        
+                          
+                            
+                            <ListView 
+                           android:id="@+id/ListViewNORMDOC" 
+                           android:layout_width="match_parent" 
+                           android:layout_height="295dp" 
+                           android:padding="7dp"
+                           />
+                            
+                            
+                            <LinearLayout 
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                          
+                           <Button
+                            style="@style/ButtonMAINPAGE"
+                            android:id="@+id/butonnormdoclist_full"
+                            android:text="Все документы"
+                            android:textSize="10dp"/>
+                            
+                              
+                          
+                            </LinearLayout >
+                           
+                 
+                          
+                      </LinearLayout>  
+                  </LinearLayout>  
+                  
+                  
+                  
+                    <LinearLayout android:id="@+id/LLLine4" style="@style/LinearLayoutLineStyle">
+     
+     
+                      <LinearLayout style="@style/LinearLayoutElementStyle">
+                        
+                         <TextView style="@style/ZagolovokStyle"
+                           android:text="Расходы" />
+     
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:text="Все расходы"/>
+                           
+                                 
+                      </LinearLayout> 
+                      
+                      
+                          <LinearLayout style="@style/LinearLayoutElementStyle"> 
+                        <TextView style="@style/ZagolovokStyle"
+                           android:text="Автотранспорт" />
+     
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:text="Учет ремонта автотранспорта"/>
+                      </LinearLayout> 
+                      
+                      
+                           <LinearLayout style="@style/LinearLayoutElementStyle">
+                      <TextView style="@style/ZagolovokStyle"
+                           android:text="Корреспонденция" />
+     
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:text="Входящая и исходящая"/>
+                      </LinearLayout> 
+                      
+                       <LinearLayout style="@style/LinearLayoutElementStyle">
+                      <TextView style="@style/ZagolovokStyle"
+                           android:text="Основные средства" />
+     
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:text="Ремонт средств производства, запасные части и т. д., кроме авторанспорта"/>
+                      </LinearLayout> 
+                      
+                      
+                    </LinearLayout> 
+                    
+                    
+                    
+                    
+                    
+                    
+                     <LinearLayout android:id="@+id/LLLine5" style="@style/LinearLayoutLineStyle">
+     
+     
+                      <LinearLayout style="@style/LinearLayoutElementStyle">
+                        
+                         <TextView style="@style/ZagolovokStyle"
+                           android:text="Заметки" />
+     
+                          <ListView 
+                           android:id="@+id/ListViewZAMETKI" 
+                           android:layout_width="match_parent" 
+                           android:layout_height="295dp" 
+                           android:padding="7dp"
+                           />
+                            
+                            
+                            <LinearLayout 
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                          
+                           <Button
+                            style="@style/ButtonMAINPAGE"
+                            android:id="@+id/butonzametkilist_full"
+                            android:text="Все заметки"
+                            android:textSize="10dp"/>
+                            
+                              
+                          
+                            </LinearLayout >
+                           
+                           
+                                 
+                      </LinearLayout> 
+                      
+                        <LinearLayout style="@style/LinearLayoutElementStyle">
+                        
+                         <TextView style="@style/ZagolovokStyle"
+                           android:text="Контрагенты" />
+     
+                         <ListView 
+                           android:id="@+id/ListViewKONTRAGENTI" 
+                           android:layout_width="match_parent" 
+                           android:layout_height="295dp" 
+                           android:padding="7dp"
+                           />
+                            
+                            
+                            <LinearLayout 
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                          
+                           <Button
+                            style="@style/ButtonMAINPAGE"
+                            android:id="@+id/buttonkontragentilist_full"
+                            android:text="Все контрагенты"
+                            android:textSize="10dp"/>
+                            
+                              
+                          
+                            </LinearLayout >
+                           
+                                 
+                      </LinearLayout> 
+                      
+                      
+                        <LinearLayout style="@style/LinearLayoutElementStyle">
+                        
+                         <TextView style="@style/ZagolovokStyle"
+                           android:text="Мои организации" />
+     
+                        <ListView 
+                           android:id="@+id/ListViewMYFIRMS" 
+                           android:layout_width="match_parent" 
+                           android:layout_height="295dp" 
+                           android:padding="7dp"
+                           />
+                            
+                            
+                            <LinearLayout 
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+                          
+                           <Button
+                            style="@style/ButtonMAINPAGE"
+                            android:id="@+id/buttonmyfirmslist_full"
+                            android:text="Все мои организации"
+                            android:textSize="10dp"/>
+                           
+                                 
+                      </LinearLayout>  
+                               
+                      </LinearLayout> 
+                      
+                      
+                      
+                      
+                        <LinearLayout style="@style/LinearLayoutElementStyle">
+                        
+                         <TextView style="@style/ZagolovokStyle"
+                           android:text="Сайт" />
+     
+                         <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:text="Управление сайтом - виджеты"/>
+                           
+                                 
+                      </LinearLayout> 
+                      
+                      
+                      
+                     </LinearLayout> 
+                     
+                    
+                      
+            <View 
+                 android:layout_width="match_parent"
+                 android:layout_height="20dp"
+                 />
+            
+        </LinearLayout>  

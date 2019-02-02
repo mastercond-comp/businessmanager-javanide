@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/LLContainer"
+     android:layout_width="1250dp"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     android:gravity="left|center"
+     android:background="#55e8f5e9"
+     android:padding="10dp">
+    
+     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Редактировать нормативный документ" 
+        android:textSize="20dp"
+        android:textStyle="bold" 
+        />
+
+     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:text="Название документа" 
+        />
+                
+
+    <EditText
+        android:id="@+id/normdoc_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, Закон о защите прав потребителей'
+        android:inputType="textMultiLine"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Описание:" />
+
+    <EditText
+        android:id="@+id/normdoc_opisanie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, "Закон, регулирующий отношения между Продавцом и покупателем"'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Примечание:" />
+
+    <EditText
+        android:id="@+id/normdoc_primechanie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='примечание к документу, список пунктов, на которые следует обратить особое внимание'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Файл:" />
+
+    <EditText
+        android:id="@+id/normdoc_filename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, zpp.pdf'
+        />
+
+        
+    <Button
+        style="@style/ButtonPAGE"
+        android:layout_marginTop="17dp"
+        android:id="@+id/butonchangenormdoc"
+        android:text="Сохранить изменения"/>
+        
+         <Button
+        style="@style/ButtonPAGE"
+        android:layout_marginTop="17dp"
+        android:id="@+id/butondelnormdoc"
+        android:text="Удалить документ"/>
+        
+        
+</LinearLayout>
+
+        

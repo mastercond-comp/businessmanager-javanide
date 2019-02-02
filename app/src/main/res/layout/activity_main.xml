@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+     <!-- КОД ВЕРХНЕГО МЕНЮ --> 
+
+     <include 
+         android:layout_width="match_parent" 
+         android:layout_height="50dp" 
+         layout="@layout/upmenu" /> 
+   
+     
+     <!-- КОНЕЦ КОД ВЕРХНЕГО МЕНЮ --> 
+     
+     <FrameLayout 
+       android:layout_width="match_parent" 
+       android:layout_height="match_parent"
+       >
+       
+       
+       <HorizontalScrollView 
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:background="#55e8f5e9"   
+     >
+       
+       
+       
+       <ScrollView 
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:background="#55e8f5e9"
+       android:id="@+id/FragmentArea"
+       >
+       
+       
+        </ScrollView>  
+        </HorizontalScrollView>  
+       
+       <!-- КОД БОКОВОГО МЕНЮ -->  
+           
+         <include 
+         android:layout_width="wrap_content" 
+         android:layout_height="match_parent" 
+         layout="@layout/menu" /> 
+          
+       <!-- КОНЕЦ КОД БОКОВОГО МЕНЮ -->  
+       
+     </FrameLayout>    
+         
+</LinearLayout>

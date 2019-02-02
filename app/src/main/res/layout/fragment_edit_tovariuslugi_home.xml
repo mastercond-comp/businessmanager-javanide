@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/LLContainer"
+     android:layout_width="1250dp"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     android:gravity="left|center"
+     android:background="#55e8f5e9"
+     android:padding="10dp">
+    
+     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Изменить данные контрагента" 
+        android:textSize="20dp"
+        android:textStyle="bold" 
+        />
+
+ <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:text="Полное наименование организации" 
+        />
+                
+
+    <EditText
+        android:id="@+id/kontragent_myfullname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, Общество с ограниченной ответственностью "Эдельвейс"'
+        android:inputType="textMultiLine"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Сокращенное наименование организации/ИП:" />
+
+    <EditText
+        android:id="@+id/kontragent_mysokrname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, ООО "Эдельвейс"'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ИНН:" />
+
+    <EditText
+        android:id="@+id/kontragent_INN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, 123456'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="КПП:" />
+
+    <EditText
+        android:id="@+id/kontragent_KPP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, 123456'
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ОГРН:" />
+
+    <EditText
+        android:id="@+id/kontragent_OGRN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, 123456'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Наименование банка:" />
+
+    <EditText
+        android:id="@+id/kontragent_bankname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, ПАО "Сбербанк"'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="БИК банка:" />
+
+    <EditText
+        android:id="@+id/kontragent_bankbik"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, 123456'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Корреспондентский счет банка:" />
+
+    <EditText
+        android:id="@+id/kontragent_bankks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, 123456'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Номер расчетного счета в банке:" />
+
+    <EditText
+        android:id="@+id/kontragent_RS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, 123456'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Должность руководителя:" />
+
+    <EditText
+        android:id="@+id/kontragent_rukdolzhnost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, Генеральный директор'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="В лице...:" />
+
+    <EditText
+        android:id="@+id/kontragent_vlice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, Генерального директора Петрова Евгения Юрьевича, действующего на основании Устава'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ФИО руководителя (сокращенно):" />
+
+    <EditText
+        android:id="@+id/kontragent_FIOruksokr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, Петров Е.Ю.'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Юридический адрес:" />
+
+    <EditText
+        android:id="@+id/kontragent_URaddr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, 123456, г.Москва, ул.Цветочная, 99, офис 50'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Фактический адрес:" />
+
+    <EditText
+        android:id="@+id/kontragent_FACTaddr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, 123456, г.Москва, ул.Цветочная, 99, офис 50'
+        />
+        
+        
+         <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Почтовый адрес:" />
+        
+        
+         <EditText
+        android:id="@+id/kontragent_POSTaddr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, 123456, г.Москва, ул.Цветочная, 99, офис 50'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Телефон:" />
+        
+
+    <EditText
+        android:id="@+id/kontragent_Phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, +7 (495) 123 45 67'
+        />
+        
+        
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ответственный за исполнение Договора:" />
+
+    <EditText
+        android:id="@+id/kontragent_otvetstvennij"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, Иванов Иван Иванович'
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Мобильный телефон:" />
+
+    <EditText
+        android:id="@+id/kontragent_MobPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, +7 (964) 123 45 67'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email:" />
+
+    <EditText
+        android:id="@+id/kontragent_Email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, test@test.ru'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Сайт:" />
+
+    <EditText
+        android:id="@+id/kontragent_www"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, www.abcdef.ru'
+        />
+        
+    <Button
+        style="@style/ButtonPAGE"
+        android:layout_marginTop="17dp"
+        android:id="@+id/butonsavekontragent"
+        android:text="Сохранить изменения в базе"/>
+        
+    <Button
+        style="@style/ButtonPAGE"
+        android:layout_marginTop="17dp"
+        android:id="@+id/butondelkontragent"
+        android:text="Удалить контрагента"/>
+        
+        
+        
+</LinearLayout>
+
+        

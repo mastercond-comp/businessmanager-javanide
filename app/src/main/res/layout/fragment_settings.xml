@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/LLContainer"
+     android:layout_width="1250dp"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     android:gravity="left|center"
+     android:background="#55e8f5e9"
+     android:padding="10dp">
+    
+     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Настройки" 
+        android:textSize="20dp"
+        android:textStyle="bold" 
+        />
+        
+        <LinearLayout 
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        >
+        
+          <Button
+           style="@style/ButtonPAGE"
+           android:layout_marginTop="17dp"
+           android:id="@+id/buttonexportbd"
+           android:text="Экспорт базы данных"/>
+    
+         <Button
+           style="@style/ButtonPAGE"
+           android:layout_marginTop="17dp"
+           android:layout_marginLeft="17dp"
+           android:id="@+id/buttonimportbd"
+           android:text="Импорт базы данных"/>
+    
+    </LinearLayout>
+    
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Режим отображения" 
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"
+        />
+    
+    <RadioGroup
+        android:id="@+id/radiogroupDevice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp">
+
+        <RadioButton
+            android:id="@+id/radio_planshet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_weight="1" 
+            android:text="Планшет" />
+
+        <RadioButton
+            android:id="@+id/radio_smartphone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_weight="1" 
+            android:text="Смартфон"/>
+
+      
+    </RadioGroup>
+    
+    
+    
+    
+    
+</LinearLayout>

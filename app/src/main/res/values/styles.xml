@@ -1,0 +1,173 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@android:style/Theme.Holo.Light.NoActionBar"/>
+  
+    
+     <style name="ScrollViewFragmentStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    
+     <style name="LinearLayoutFragmentStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item> 
+        <item name="android:background">#55e8f5e9</item>
+        <item name="android:layout_marginTop">12dp</item>
+    </style>
+    
+      <!-- ВИДЖЕТЫ ГЛАВНОГО ЭКРАНА -->
+    
+     <style name="LinearLayoutElementStyle">
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">400dp</item>
+        <item name="android:orientation">vertical</item> 
+        <item name="android:background">@drawable/llelement</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:elevation">5dp</item>                  
+    </style>
+    
+    
+     <style name="LinearLayoutLineStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">horizontal</item> 
+        <item name="android:background">#55e8f5e9</item>  
+        <item name="android:layout_marginTop">12dp</item>
+    </style>
+    
+    
+    
+    <style name="ZagolovokStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18dp</item> 
+        <item name="android:textStyle">bold</item>        
+        <item name="android:layout_marginTop">10dp</item>  
+        <item name="android:layout_marginBottom">10dp</item>  
+        <item name="android:textColor">#1b5e20</item>  
+    </style>
+    
+    
+     <!-- КОНЕЦ ВИДЖЕТЫ ГЛАВНОГО ЭКРАНА -->
+    
+    
+    
+    
+     <!-- БОКОВОЕ МЕНЮ -->
+    
+    <style name="ScrollViewMENUStyle">
+        <item name="android:layout_width">320dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">#dd558b2f</item>  
+    </style>
+    
+    
+     <style name="LinearLayoutMENUStyle">
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">10dp</item>  
+    </style>
+    
+    
+    <style name="ButtonMENUStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">#00558b2f</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>  
+    
+     <!-- КОНЕЦ БОКОВОЕ МЕНЮ -->
+     
+     
+     
+     <!-- ВЕРХНЕЕ МЕНЮ -->
+     
+     <style name="ButtonUPMENUStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">#00558b2f</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">10dp</item>
+    </style>
+    
+    <!--КОНЕЦ ВЕРХНЕЕ МЕНЮ -->
+    
+   
+    <!-- КНОПКИ НА СТРАНИЦАХ -->
+     
+     <style name="ButtonPAGE">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:background">@drawable/pagebutton</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">5dp</item>
+    </style>
+    
+    <!--КОНЕЦ КНОПКИ НА СТРАНИЦАХ -->
+    
+    
+    <!-- КНОПКИ НА СТРАНИЦАХ СДЕЛОК -->
+     
+     <style name="ButtonPAGEsdelki">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:background">@drawable/pagebutton</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+    
+    <!--КОНЕЦ КНОПКИ НА СТРАНИЦАХ СДЕЛОК-->
+    
+    
+    <!-- КНОПКИ НА ГЛАВНОЙ СТРАНИЦЕ -->
+     
+     <style name="ButtonMAINPAGE">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">33dp</item>
+        <item name="android:background">@drawable/pagebutton</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:elevation">3dp</item>
+        <item name="android:radius">3dp</item>        
+    </style>
+    
+    <!--КОНЕЦ КНОПКИ НА ГЛАВНОЙ СТРАНИЦЕ -->
+    
+    
+    
+    <!-- КНОПКИ РАСКРЫТИЕ ЭЛЕМЕНТОВ -->
+     
+     <style name="ButtonRASKRITIE">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textStyle">bold</item> 
+    </style>
+    
+    <!--КОНЕЦ КНОПКИ РАСКРЫТИЕ ЭЛЕМЕНТОВ -->
+   
+    
+
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/LLContainer"
+     android:layout_width="1250dp"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     android:gravity="left|center"
+     android:background="#55e8f5e9"
+     android:padding="10dp">
+    
+     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Мои организации" 
+        android:textSize="20dp"
+        android:textStyle="bold" 
+        />
+        
+     <Button
+        style="@style/ButtonPAGE"
+        android:layout_marginTop="17dp"
+        android:id="@+id/buttonaddmyfirm"
+        android:text="Добавить свою организацию"/>
+    
+     <ListView 
+        android:id="@+id/ListViewMyFirms" 
+        android:layout_width="match_parent" 
+        android:layout_height="550dp" 
+        android:padding="12dp"
+    />
+    
+</LinearLayout>

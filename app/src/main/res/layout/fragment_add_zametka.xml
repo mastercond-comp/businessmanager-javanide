@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/LLContainer"
+     android:layout_width="1250dp"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     android:gravity="left|center"
+     android:background="#55e8f5e9"
+     android:padding="10dp">
+    
+     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Добавить заметку" 
+        android:textSize="20dp"
+        android:textStyle="bold" 
+        />
+
+     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:text="Название заметки" 
+        />
+                
+
+    <EditText
+        android:id="@+id/zametka_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, Заметка о продолжительности рабочего дня'
+        android:inputType="textMultiLine"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Текст заметки:" />
+
+    <EditText
+        android:id="@+id/zametka_opisanie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, "c 8 до 17"'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Сделка:" />
+
+    <EditText
+        android:id="@+id/zametka_sdelka"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, Ремонт ксероксов для ИП Мамаева'
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Дата:" />
+
+    <EditText
+        android:id="@+id/zametka_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint='например, 19 сентября 2018 года'
+        />
+
+        
+    <Button
+        style="@style/ButtonPAGE"
+        android:layout_marginTop="17dp"
+        android:id="@+id/butonaddzametka"
+        android:text="Добавить в базу заметку"/>
+        
+        
+</LinearLayout>
+
+        
