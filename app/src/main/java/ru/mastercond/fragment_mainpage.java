@@ -46,6 +46,7 @@ import ru.mastercond.Sdelki;
 import ru.mastercond.SdelkiListAdapter;
 import ru.mastercond.fragment_KONTRAGENTI;
 import ru.mastercond.fragment_MYFIRMS;
+import ru.mastercond.SetDynamicHeightListView;
 
 import ru.mastercond.SdelkaID;
 
@@ -77,6 +78,7 @@ public class fragment_mainpage extends Fragment {
   private ArrayList<Sdelki> listkontragenti1;
   
   
+  
   public fragment_mainpage() {}
   
   @Override
@@ -88,8 +90,12 @@ public class fragment_mainpage extends Fragment {
    @Override
    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
    
+   
+   
+   
    View rootView = inflater.inflate(R.layout.fragment_mainpage, container, false);
    
+
    
 
 //=================СЕКЦИЯ ЗАКРЫТИЯ МЕНЮ ПРИ НАЖАТИИ НА ЭКРАН=================
@@ -243,6 +249,7 @@ public class fragment_mainpage extends Fragment {
       ListView ListViewZAMETKI = (ListView)rootView.findViewById(R.id.ListViewZAMETKI);
 
       ListViewZAMETKI.setAdapter(new ZAMETKIListAdapter(getActivity(), list));
+      
 
       ListViewZAMETKI.setOnItemClickListener(
           new OnItemClickListener() {

@@ -588,8 +588,8 @@ public class fragment_add_sdelka extends Fragment {
               Toast.makeText(getActivity(), "Сделка успешно добавлена в базу", Toast.LENGTH_LONG)
                   .show();
 
-              // MainActivity rootActivity = (MainActivity)getActivity();
-              // rootActivity.closekontragent();
+              MainActivity rootActivity = (MainActivity)getActivity();
+              rootActivity.sdelkiclose();
 
             } catch (SQLException mSQLException) {
               Toast.makeText(getActivity(), mSQLException.toString(), Toast.LENGTH_LONG).show();

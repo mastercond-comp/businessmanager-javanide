@@ -21,18 +21,6 @@ public class SQLiteConnect extends SQLiteOpenHelper
   
     public static final String DATABASE_NAME="dbbusinessmanagement.db"; //имя базы данных
 
-    //public static final String TABLE1_NAME="kontragenti"; //имя таблицы - список контрагентов (справочник)
-    //public static final String TABLE2_NAME="sdelki"; //имя таблицы - список всех сделок
-    //public static final String TABLE3_NAME="tovari-uslugi"; //имя таблицы - список всех товаров и услуг (прайс)
-    //public static final String TABLE4_NAME="documents"; //имя таблицы - письма на бланке организации, технические заключения, акты сверки и т.д.
-    //public static final String TABLE5_NAME="moi-rekviziti"; //имя таблицы - реквизиты моих организаций
-    //public static final String TABLE6_NAME="settings"; //имя таблицы - настройки приложения
-    //public static final String TABLE7_NAME="mysql-remote-database"; //имя таблицы - настройки для удаленного доступа к mysql (при многопользовательском режиме работы)
-
-    //public static final String TABLE1_COL_1="ID"; //имя столбца таблицы 1
-    //public static final String TABLE1_COL_2="NAME"; //имя столбца таблицы 1
-    //public static final String TABLE1_COL_3="SURNAME"; //имя столбца таблицы 1
-    //public static final String TABLE1_COL_4="MARKS"; //имя столбца таблицы 1
 
     public SQLiteConnect (Context context)
     {

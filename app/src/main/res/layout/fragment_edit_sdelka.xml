@@ -12,7 +12,7 @@
      <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Добавить сделку" 
+        android:text="Редактировать сделку" 
         android:textSize="20dp"
         android:textStyle="bold" 
         />
@@ -815,6 +815,10 @@
         
         
         
+        
+        
+        
+        
         <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
@@ -836,9 +840,44 @@
           android:textStyle="bold"  />
         
       </LinearLayout>
+      
         
+       <LinearLayout
+       android:id="@+id/sectiontovariuslugi"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:layout_marginTop="10dp">  
+       
+       <LinearLayout
+       android:id="@+id/sectionaddtovariuslugibuttons"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_marginTop="7dp">  
+       
+       <Button
+        style="@style/ButtonPAGE"
+        android:id="@+id/buttonaddtovar"
+        android:text="Добавить товар" 
+        android:layout_marginLeft="35dp"/>
         
-        
+        <Button
+        style="@style/ButtonPAGE"
+        android:id="@+id/buttonaddusluga"
+        android:text="Добавить услугу"
+        android:layout_marginLeft="7dp"/> 
+       
+       </LinearLayout>
+       
+       
+       <ListView 
+       android:id="@+id/ListViewTOVARIUSLUGI" 
+       android:layout_width="match_parent" 
+       android:layout_height="match_parent"
+       android:padding="7dp" />
+       
+       </LinearLayout>
         
         
         
@@ -1032,6 +1071,96 @@
       </LinearLayout>
         
      </LinearLayout>
+     
+     
+     
+     
+     
+     
+     
+     <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_marginLeft="10dp"
+       android:layout_marginTop="10dp">
+        
+         <Button
+          style="@style/ButtonRASKRITIE"
+          android:id="@+id/buttonshowzametki"
+          android:text=">" />
+        
+        
+         <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="ЗАМЕТКИ" 
+          android:textSize="16dp"
+          android:textStyle="bold"  />
+        
+      </LinearLayout>
+     
+     
+     <LinearLayout
+       android:id="@+id/sectionzametki"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:layout_marginTop="10dp">  
+       
+       <LinearLayout
+       android:id="@+id/sectionaddzametka"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_marginTop="7dp">  
+       
+       <Button
+        style="@style/ButtonPAGE"
+        android:id="@+id/buttonaddzametka"
+        android:text="Добавить заметку" 
+        android:layout_marginLeft="35dp"/>
+        
+       
+       </LinearLayout>
+       
+      
+       
+       <ListView 
+       android:id="@+id/ListViewZAMETKI" 
+       android:layout_width="match_parent" 
+       android:layout_height="wrap_content"
+       android:padding="7dp"
+       android:layout_marginLeft="35dp"
+       android:layout_marginTop="8dp" 
+       />
+       
+       
+       </LinearLayout>
+       
+       
+       
+       <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="СТАТУС СДЕЛКИ" 
+          android:textSize="16dp"
+          android:textStyle="bold"  
+          android:layout_marginTop="10dp"/>
+          
+          <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="(в работе, завершена, выставлено кп)" 
+          android:textSize="15dp"
+          />
+          
+          <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="СЛОЖНОСТЬ, ПРОБЛЕМНОСТЬ, РИСКИ И Т.Д." 
+          android:textSize="15dp"
+          />
      
      
     <Button

@@ -1,72 +1,67 @@
 package ru.mastercond;
 
-import android.app.Fragment;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.content.Context;
-import android.os.Bundle;
-import android.os.Environment;
-import android.view.View;
-import android.content.Intent;
-import android.view.WindowManager;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.app.Activity;
-import android.os.Bundle;
-import ru.mastercond.MenuOpened;
-import ru.mastercond.SQLiteConnect;
-import ru.mastercond.R;
-
-import android.content.Context;
+import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.ContentValues;
-import android.util.Log;
-import android.util.DisplayMetrics;
-import android.widget.ScrollView;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-
-import android.widget.ListView;
-import android.widget.ListAdapter;
-import android.widget.ArrayAdapter;
-import android.widget.AdapterView;
-
-import ru.mastercond.Sdelki;
-import ru.mastercond.SdelkiListAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
-import android.widget.AdapterView.OnItemClickListener;
-
-import ru.mastercond.SQLiteConnect;
-import ru.mastercond.MainActivity;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.database.SQLException;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
-
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Bundle;
+import android.os.Environment;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View.OnClickListener;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Adapter;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 import java.lang.ClassCastException;
+import java.util.ArrayList;
+import java.util.List;
+import ru.mastercond.MainActivity;
+import ru.mastercond.MenuOpened;
+import ru.mastercond.R;
+import ru.mastercond.SQLiteConnect;
+import ru.mastercond.SQLiteConnect;
 import ru.mastercond.SdelkaID;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import ru.mastercond.Sdelki;
+import ru.mastercond.SdelkiListAdapter;
+import ru.mastercond.SetDynamicHeightListView;
+import ru.mastercond.ZAMETKIdialogListAdapter;
+import ru.mastercond.ZAMETKI;
 
 public class fragment_edit_sdelka extends Fragment {
 
   private SQLiteConnect DB;
+  private SetDynamicHeightListView SetDListView;
 
   public fragment_edit_sdelka() {}
 
   private ArrayList<Sdelki> kontragentlist;
   private ArrayList<Sdelki> myorglist;
   private ArrayList<Sdelki> uslovijalist;
+  
+  private ArrayList<ZAMETKI> listzametki;
 
   private ArrayList idArray1;
   private ArrayList idArray2;
@@ -76,11 +71,14 @@ public class fragment_edit_sdelka extends Fragment {
   AlertDialog.Builder dialogmyorg;
   AlertDialog.Builder sdelkauslovija;
   AlertDialog.Builder addel;
+  AlertDialog.Builder addzametkabuilder;
+  
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
   }
+
 
   @Override
   public View onCreateView(
@@ -89,10 +87,13 @@ public class fragment_edit_sdelka extends Fragment {
     View rootView = inflater.inflate(R.layout.fragment_edit_sdelka, container, false);
 
     DB = new SQLiteConnect(getActivity());
+    SetDListView=new SetDynamicHeightListView();
    
-   final MainActivity rootActivity = (MainActivity)getActivity(); 
-   final String ID = rootActivity.getsdelkaid();
+    final MainActivity rootActivity = (MainActivity)getActivity();
+    final String ID = rootActivity.getsdelkaid();
    
+   
+    final ArrayList<ZAMETKI> listzametki = new ArrayList<ZAMETKI>();
     
     final EditText ETSdelkaName = (EditText) rootView.findViewById(R.id.sdelka_name);
 
@@ -168,6 +169,7 @@ public class fragment_edit_sdelka extends Fragment {
           }
         });
     // =================КОНЕЦ СЕКЦИИ ЗАКРЫТИЯ МЕНЮ ПРИ НАЖАТИИ НА ЭКРАН=================
+    
 
     // =================ВЫСТАВЛЕНИЕ РЕЖИМА ОТОБРАЖЕНИЯ ТЕЛЕФОН-ПЛАНШЕТ=================
 
@@ -192,18 +194,22 @@ public class fragment_edit_sdelka extends Fragment {
 
     // =================КОНЕЦ СЕКЦИИ ВЫСТАВЛЕНИЕ РЕЖИМА ОТОБРАЖЕНИЯ ТЕЛЕФОН-ПЛАНШЕТ=================
 
-    final LinearLayout LinearLayoutKontragent =
-        (LinearLayout) rootView.findViewById(R.id.sectionkontragent);
+    final LinearLayout LinearLayoutKontragent = (LinearLayout) rootView.findViewById(R.id.sectionkontragent);
     final LinearLayout LinearLayoutMyOrg = (LinearLayout) rootView.findViewById(R.id.sectionmyorg);
-    final LinearLayout LinearLayoutDocuments =
-        (LinearLayout) rootView.findViewById(R.id.sectiondocuments);
-    final LinearLayout LinearLayoutUslovijaSdelki =
-        (LinearLayout) rootView.findViewById(R.id.sectionuslovijasdelki);
+    final LinearLayout LinearLayoutDocuments = (LinearLayout) rootView.findViewById(R.id.sectiondocuments);
+    final LinearLayout LinearLayoutUslovijaSdelki = (LinearLayout) rootView.findViewById(R.id.sectionuslovijasdelki);
+    final LinearLayout LinearLayoutTovariUslugi = (LinearLayout) rootView.findViewById(R.id.sectiontovariuslugi);
+    final LinearLayout LinearLayoutZametki = (LinearLayout) rootView.findViewById(R.id.sectionzametki);
+    
 
     LinearLayoutKontragent.setVisibility(View.GONE);
     LinearLayoutMyOrg.setVisibility(View.GONE);
     LinearLayoutDocuments.setVisibility(View.GONE);
     LinearLayoutUslovijaSdelki.setVisibility(View.GONE);
+    LinearLayoutTovariUslugi.setVisibility(View.GONE);
+    LinearLayoutZametki.setVisibility(View.GONE);
+    
+    
 
     //=================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ ВВОДА В КОНТРАГЕНТАХ=================
 
@@ -226,6 +232,8 @@ public class fragment_edit_sdelka extends Fragment {
         });
 
     // =================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ ВВОДА В КОНТРАГЕНТАХ=================
+    
+    
 
     // =================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ ВВОДА В МОИХ ОРГАНИЗАЦИЯХ=================
 
@@ -247,6 +255,8 @@ public class fragment_edit_sdelka extends Fragment {
         });
 
     // =================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ ВВОДА В МОИХ ОРГАНИЗАЦИЯХ=================
+    
+    
 
     // =================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ ВВОДА В УСЛОВИЯХ СДЕЛКИ=================
 
@@ -269,10 +279,12 @@ public class fragment_edit_sdelka extends Fragment {
         });
 
     //=================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ ВВОДА В УСЛОВИЯХ СДЕЛКИ=================
+    
+    
 
     //=================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ=================
 
-    final Button ButtonShowDocuments = (Button) rootView.findViewById(R.id.buttonshowdocuments);
+    final Button ButtonShowDocuments = (Button)rootView.findViewById(R.id.buttonshowdocuments);
     ButtonShowDocuments.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -293,8 +305,7 @@ public class fragment_edit_sdelka extends Fragment {
     
     
 
-    // =================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->КОММЕРЧЕСКИЕ
-    // ПРЕДЛОЖЕНИЯ=================
+    // =================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->КОММЕРЧЕСКИЕ ПРЕДЛОЖЕНИЯ=================
 
     final Button ButtonShowDocumentsKP = (Button) rootView.findViewById(R.id.buttonshowkommpredl);
     ButtonShowDocumentsKP.setOnClickListener(
@@ -313,11 +324,11 @@ public class fragment_edit_sdelka extends Fragment {
           }
         });
 
-    // =================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->КОММЕРЧЕСКИЕ
-    // ПРЕДЛОЖЕНИЯ=================
+    // =================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->КОММЕРЧЕСКИЕ ПРЕДЛОЖЕНИЯ=================
+    
+    
 
-    // =================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ
-    // ДОКУМЕНТЫ-->ТЕХЗАКЛЮЧЕНИЯ=================
+    // =================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->ТЕХЗАКЛЮЧЕНИЯ=================
 
     final Button ButtonShowDocumentsTZ = (Button) rootView.findViewById(R.id.buttonshowtehzakl);
     ButtonShowDocumentsTZ.setOnClickListener(
@@ -336,10 +347,11 @@ public class fragment_edit_sdelka extends Fragment {
           }
         });
 
-    // =================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ
-    // ДОКУМЕНТЫ-->ТЕХЗАКЛЮЧЕНИЯ=================
+    //=================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->ТЕХЗАКЛЮЧЕНИЯ=================
+    
+    
 
-    // =================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->СЧЕТА=================
+    //=================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->СЧЕТА=================
 
     final Button ButtonShowDocumentsScheta = (Button) rootView.findViewById(R.id.buttonshowscheta);
     ButtonShowDocumentsScheta.setOnClickListener(
@@ -358,10 +370,11 @@ public class fragment_edit_sdelka extends Fragment {
           }
         });
 
-    // =================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ
-    // ДОКУМЕНТЫ-->СЧЕТА=================
+    //=================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->СЧЕТА=================
+    
+    
 
-    // =================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->ДОГОВОР=================
+    //=================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->ДОГОВОР=================
 
     final Button ButtonShowDocumentsDogovor =
         (Button) rootView.findViewById(R.id.buttonshowdogovor);
@@ -381,10 +394,11 @@ public class fragment_edit_sdelka extends Fragment {
           }
         });
 
-    // =================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ
-    // ДОКУМЕНТЫ-->ДОГОВОР=================
+    //=================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->ДОГОВОР=================
+    
+    
 
-    // =================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->АКТЫ=================
+    //=================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->АКТЫ=================
 
     final Button ButtonShowDocumentsAkt = (Button) rootView.findViewById(R.id.buttonshowakt);
     ButtonShowDocumentsAkt.setOnClickListener(
@@ -403,10 +417,11 @@ public class fragment_edit_sdelka extends Fragment {
           }
         });
 
-    // =================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ
-    // ДОКУМЕНТЫ-->АКТЫ=================
+    //=================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->АКТЫ=================
+    
+    
 
-    // =================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->НАКЛАДНЫЕ=================
+    //=================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->НАКЛАДНЫЕ=================
 
     final Button ButtonShowDocumentsNakl = (Button) rootView.findViewById(R.id.buttonshownakl);
     ButtonShowDocumentsNakl.setOnClickListener(
@@ -425,11 +440,11 @@ public class fragment_edit_sdelka extends Fragment {
           }
         });
 
-    // =================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ
-    // ДОКУМЕНТЫ-->НАКЛАДНЫЕ=================
+    // =================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->НАКЛАДНЫЕ=================
+    
+    
 
-    // =================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->ПРОЧИЕ
-    // ДОКУМЕНТЫ=================
+    // =================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->ПРОЧИЕ ДОКУМЕНТЫ=================
 
     final Button ButtonShowDocumentsProch = (Button) rootView.findViewById(R.id.buttonshowdrdoc);
     ButtonShowDocumentsProch.setOnClickListener(
@@ -449,6 +464,54 @@ public class fragment_edit_sdelka extends Fragment {
         });
 
     //=================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ДОКУМЕНТЫ-->ПРОЧИЕ ДОКУМЕНТЫ=================
+    
+    
+    
+    //=================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ТОВАРЫ И УСЛУГИ=================
+
+    final Button ButtonShowTOVUSL = (Button)rootView.findViewById(R.id.buttonshowtovariuslugi);
+    ButtonShowTOVUSL.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+
+            if (LinearLayoutTovariUslugi.getVisibility() == View.VISIBLE) {
+
+              LinearLayoutTovariUslugi.setVisibility(View.GONE);
+              ButtonShowTOVUSL.setText(">");
+            } else {
+              LinearLayoutTovariUslugi.setVisibility(View.VISIBLE);
+              ButtonShowTOVUSL.setText("^");
+            }
+          }
+        });
+
+    // =================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ТОВАРЫ И УСЛУГИ=================
+    
+    
+    
+    
+     //=================СЕКЦИЯ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ЗАМЕТКИ=================
+
+    final Button ButtonShowZAMETKI = (Button)rootView.findViewById(R.id.buttonshowzametki);
+    ButtonShowZAMETKI.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+
+            if (LinearLayoutZametki.getVisibility() == View.VISIBLE) {
+
+              LinearLayoutZametki.setVisibility(View.GONE);
+              ButtonShowZAMETKI.setText(">");
+            } else {
+              LinearLayoutZametki.setVisibility(View.VISIBLE);
+              ButtonShowZAMETKI.setText("^");
+            }
+          }
+        });
+
+    // =================КОНЕЦ СЕКЦИИ ПОКАЗА-СКРЫТИЯ ПОЛЕЙ В РАЗДЕЛЕ ЗАМЕТКИ=================
+    
     
     
     
@@ -524,6 +587,49 @@ public class fragment_edit_sdelka extends Fragment {
     //=================КОНЕЦ СЕКЦИЯ ЗАПОЛНЕНИЯ СТРАНИЦЫ ДАННЫМИ ИЗ БД=================
     
     
+    
+    
+    // =================СЕКЦИЯ ЗАПОЛНЕНИЯ СТРАНИЦЫ ДАННЫМИ ИЗ БД (РАЗДЕЛ ЗАМЕТКИ)=================
+    try {
+
+
+      SQLiteDatabase db = DB.getReadableDatabase();
+
+      Cursor cursor = db.rawQuery("SELECT * FROM ZAMETKI WHERE SDELKAIDD = " + ID, null); 
+      
+      while (cursor.moveToNext()) {
+        listzametki.add(
+            new ZAMETKI(cursor.getString(1),"","","Дата: "+cursor.getString(3), "", ""));
+                
+       
+      }
+      
+      final ListView ListViewZAMETKI = (ListView)rootView.findViewById(R.id.ListViewZAMETKI);
+     
+     //LayoutParams lp = (LayoutParams) ListViewZAMETKI.getLayoutParams();
+    // lp.height = 500;
+    // ListViewZAMETKI.setLayoutParams(lp);
+      
+      
+      ZAMETKIdialogListAdapter adapter = new ZAMETKIdialogListAdapter(getActivity(), listzametki);
+      ListViewZAMETKI.setAdapter(adapter);
+      SetDListView.SetDynamicHeight(ListViewZAMETKI,getActivity());
+
+      ListViewZAMETKI.setOnItemClickListener(
+          new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+              
+              
+              
+              
+            }
+          });
+
+    } catch (CursorIndexOutOfBoundsException CursorException) {
+      Toast.makeText(getActivity(), CursorException.toString(), Toast.LENGTH_LONG).show();
+    }
+    // =================КОНЕЦ СЕКЦИИ ЗАПОЛНЕНИЯ СТРАНИЦЫ ДАННЫМИ ИЗ БД (РАЗДЕЛ ЗАМЕТКИ)=================
     
     
 
@@ -729,8 +835,9 @@ public class fragment_edit_sdelka extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                               dialog.dismiss();
+                              
 
-                              // =================СЕКЦИЯ ЗАПОЛНЕНИЯ РАЗДЕЛА КОНТРАГЕНТЫ ДАННЫМИ ИЗ БД=================
+                             // =================СЕКЦИЯ ЗАПОЛНЕНИЯ РАЗДЕЛА КОНТРАГЕНТЫ ДАННЫМИ ИЗ БД=================
                               try {
                                 SQLiteDatabase db1 = DB.getReadableDatabase();
                                 Cursor cursor = db1.rawQuery("SELECT * FROM KONTRAGENTI WHERE ID = " + selectedID1, null);
@@ -780,6 +887,10 @@ public class fragment_edit_sdelka extends Fragment {
             }
           }
         });
+        
+        
+        
+        
 
     Button SelectMyOrg = (Button) rootView.findViewById(R.id.buttonselectmyorg);
     SelectMyOrg.setOnClickListener(new View.OnClickListener() {
@@ -924,6 +1035,103 @@ public class fragment_edit_sdelka extends Fragment {
             
             } 
             } );
+            
+            
+            
+            Button ButtonAddZametka = (Button)rootView.findViewById(R.id.buttonaddzametka);
+            
+            ButtonAddZametka.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            
+                AlertDialog.Builder addzametkabuilder = new AlertDialog.Builder(container. getContext());
+
+                View dialogView = inflater.inflate(R.layout.alertdialog_add_zametka, null); //важно - inflater определен в начале кода фрагмента
+
+                addzametkabuilder.setCancelable(false);
+
+                // Привязка xml-разметки окна диалогов
+                addzametkabuilder.setView(dialogView);
+                
+                
+                Button btn_positive = (Button) dialogView.findViewById(R.id.dialog_positive_btn);
+                Button btn_negative = (Button) dialogView.findViewById(R.id.dialog_negative_btn);
+                final EditText DialogAddZametkaName = (EditText)dialogView.findViewById(R.id.dialogadd_zametka_name);
+                final EditText DialogAddZametkaOpisanie = (EditText)dialogView.findViewById(R.id.dialogadd_zametka_opisanie);
+                final EditText DialogAddZametkaData = (EditText)dialogView.findViewById(R.id.dialogadd_zametka_data);
+
+                // Создание диалога
+                final AlertDialog addzametkadialog = addzametkabuilder.create();
+
+               
+                btn_positive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Dismiss the alert dialog
+                        
+                        
+                        try {
+             
+                String Zname=DialogAddZametkaName.getText().toString();
+                String Zopisanie= DialogAddZametkaOpisanie.getText().toString();
+                String Zdata=DialogAddZametkaData.getText().toString();
+                
+                DB.AddZAMETKA(Zname,Zopisanie,ID,Zdata);
+                
+                
+             
+             listzametki.clear();
+             
+             Toast.makeText(getActivity(),"Заметка успешно добавлена в базу",Toast.LENGTH_LONG).show();
+             
+             SQLiteDatabase db = DB.getReadableDatabase();
+
+             Cursor cursor = db.rawQuery("SELECT * FROM ZAMETKI WHERE SDELKAIDD = " + ID, null); 
+      
+             while (cursor.moveToNext()) {
+              listzametki.add(
+               new ZAMETKI(
+                cursor.getString(1),
+                cursor.getString(2),
+                "Дата:"+cursor.getString(3),
+                "", 
+                cursor.getString(5), 
+                cursor.getString(5)));
+                
+       
+       
+      }
+     
+             
+             } 
+            catch (SQLException mSQLException) {
+            Toast.makeText(getActivity(),mSQLException.toString(),Toast.LENGTH_LONG).show();
+            }
+           
+                        addzametkadialog.cancel();
+                       
+                    }
+                });
+
+               
+                btn_negative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Dismiss/cancel the alert dialog
+                        //dialog.cancel();
+                        addzametkadialog.dismiss();
+                        //Toast.makeText(getContext(),"No button clicked", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                addzametkadialog.show();
+            }
+        });
+            
+            
+            
+            
+            
 
     return rootView;
   }
