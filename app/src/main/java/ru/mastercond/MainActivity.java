@@ -807,6 +807,7 @@ public void importbd()
         String dbfilePath= CN.getDatabasePath("db").getPath().toString(); //получить путь до dbbusinessmanagement.db
         String dbfileINPath=Environment.getExternalStorageDirectory().getAbsolutePath().toString()+"/Управление.бизнесом/"; 
         copyFile(dbfileINPath,"businessmanagement.db", "businessmanagement.db",dbfilePath); //импортировать файл базы данных
+        
 
      //=================СЕКЦИЯ КОПИРОВАНИЯ ФАЙЛА БАЗЫ ДАННЫХ В ПРИЛОЖЕНИЕ=================
     

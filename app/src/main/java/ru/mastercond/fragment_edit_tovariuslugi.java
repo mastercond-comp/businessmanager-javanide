@@ -165,6 +165,8 @@ public class fragment_edit_tovariuslugi extends Fragment {
       
     }
     
+    db.close();
+    
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {
@@ -202,7 +204,7 @@ public class fragment_edit_tovariuslugi extends Fragment {
    KontragentOtvetstvennij.setText(cursor.getString(20));
     
     
-   
+   db.close();
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {

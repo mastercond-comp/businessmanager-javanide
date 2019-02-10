@@ -164,7 +164,7 @@ public class fragment_edit_kontragent_home extends Fragment {
      fragRoot.setLayoutParams(param);
       
     }
-    
+    db.close();
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {
@@ -202,7 +202,7 @@ public class fragment_edit_kontragent_home extends Fragment {
    KontragentOtvetstvennij.setText(cursor.getString(20));
     
     
-   
+   db.close();
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {
@@ -265,30 +265,43 @@ public class fragment_edit_kontragent_home extends Fragment {
             
            
             ad = new AlertDialog.Builder(container. getContext());
-            ad.setTitle("Удалить контрагента из базы?");
             ad.setCancelable(true);
-            ad.setNegativeButton("Не удалять",
-                 new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                     dialog.cancel();
-                     }
-                    }); 
-                     
-                     ad.setPositiveButton("Удалить",  
-                 new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+            View dialogView = inflater.inflate(R.layout.alertdialog_delete, null); //важно - inflater определен в начале кода фрагмента
+            // Привязка xml-разметки окна диалогов
+            ad.setView(dialogView);
+            final AlertDialog deldialog = ad.create();
+             
+            final Button btn_negative = (Button) dialogView.findViewById(R.id.dialog_negative_btn);
+            final Button btn_positive = (Button) dialogView.findViewById(R.id.dialog_positive_btn);
+            final TextView Zagolovok=(TextView) dialogView.findViewById(R.id.Zagolovok);
+            Zagolovok.setText("Удалить контрагента из базы?");
+            
+            btn_negative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        
+                        deldialog.cancel();
+                       
+                    }
+                });
+                
+                btn_positive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        
                      String ID = rootActivity.getsdelkaid();
                      DB.DelKontragent(ID);
               
                      Toast.makeText(getActivity(),"Данные контрагента удалены из базы",Toast.LENGTH_LONG).show();
-            
+                     deldialog.cancel();
                      MainActivity rootActivity = (MainActivity)getActivity(); 
-                     rootActivity.closekontragenthome();
-                     }
-                     }) ;
-                     
+                     rootActivity.closekontragent();
+                       
+                    }
+                });
+                    
              
-             ad.show();
+             deldialog.show();
             
             
             } 

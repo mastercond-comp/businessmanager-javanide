@@ -83,7 +83,7 @@ public class fragment_add_zametka_home extends Fragment {
      fragRoot.setLayoutParams(param);
       
     }
-    
+    db.close();
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {

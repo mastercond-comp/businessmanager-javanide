@@ -85,7 +85,7 @@ public class fragment_add_normdoc extends Fragment {
      fragRoot.setLayoutParams(param);
       
     }
-    
+    db.close();
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {
@@ -127,7 +127,7 @@ public class fragment_add_normdoc extends Fragment {
              
              
              
-             Toast.makeText(getActivity(),"Нормативный документ успешно добален в базу",Toast.LENGTH_LONG).show();
+             Toast.makeText(getActivity(),"Нормативный документ успешно добавлен в базу",Toast.LENGTH_LONG).show();
              
              MainActivity rootActivity = (MainActivity)getActivity(); 
              rootActivity.closenormdoc();

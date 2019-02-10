@@ -100,7 +100,7 @@ public class fragment_add_tovariuslugi extends Fragment {
      fragRoot.setLayoutParams(param);
       
     }
-    
+    db.close();
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {

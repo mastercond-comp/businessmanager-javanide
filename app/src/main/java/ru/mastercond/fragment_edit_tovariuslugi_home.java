@@ -162,7 +162,7 @@ public class fragment_edit_tovariuslugi_home extends Fragment {
      fragRoot.setLayoutParams(param);
       
     }
-    
+    db.close();
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {
@@ -200,7 +200,7 @@ public class fragment_edit_tovariuslugi_home extends Fragment {
    KontragentOtvetstvennij.setText(cursor.getString(20));
     
     
-   
+   db.close();
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {

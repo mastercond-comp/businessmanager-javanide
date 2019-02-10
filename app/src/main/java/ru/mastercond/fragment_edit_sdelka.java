@@ -42,7 +42,6 @@ import ru.mastercond.MainActivity;
 import ru.mastercond.MenuOpened;
 import ru.mastercond.R;
 import ru.mastercond.SQLiteConnect;
-import ru.mastercond.SQLiteConnect;
 import ru.mastercond.SdelkaID;
 import ru.mastercond.Sdelki;
 import ru.mastercond.SdelkiListAdapter;
@@ -72,6 +71,9 @@ public class fragment_edit_sdelka extends Fragment {
   AlertDialog.Builder sdelkauslovija;
   AlertDialog.Builder addel;
   AlertDialog.Builder addzametkabuilder;
+  AlertDialog.Builder editzametkabuilder;
+  AlertDialog.Builder selectkontragentbuilder;
+  AlertDialog.Builder selectmyorgbuilder;
   
 
   @Override
@@ -94,6 +96,9 @@ public class fragment_edit_sdelka extends Fragment {
    
    
     final ArrayList<ZAMETKI> listzametki = new ArrayList<ZAMETKI>();
+    final ListView ListViewZAMETKI = (ListView)rootView.findViewById(R.id.ListViewZAMETKI);
+    final ZAMETKIdialogListAdapter Zadapter = new ZAMETKIdialogListAdapter(getActivity(), listzametki);
+    final ArrayList idArrayZametki = new ArrayList();
     
     final EditText ETSdelkaName = (EditText) rootView.findViewById(R.id.sdelka_name);
 
@@ -187,6 +192,8 @@ public class fragment_edit_sdelka extends Fragment {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         fragRoot.setLayoutParams(param);
       }
+      
+      db.close();
 
     } catch (CursorIndexOutOfBoundsException CursorException) {
       // Toast.makeText(getActivity(),CursorException.toString(),Toast.LENGTH_LONG).show();
@@ -577,7 +584,8 @@ public class fragment_edit_sdelka extends Fragment {
     ETOsobijeUslovija.setText(cursor.getString(54));
     ETSud.setText(cursor.getString(55));
     
-   
+    db.close();
+    
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {
@@ -592,46 +600,177 @@ public class fragment_edit_sdelka extends Fragment {
     // =================СЕКЦИЯ ЗАПОЛНЕНИЯ СТРАНИЦЫ ДАННЫМИ ИЗ БД (РАЗДЕЛ ЗАМЕТКИ)=================
     try {
 
-
+      idArrayZametki.clear();
       SQLiteDatabase db = DB.getReadableDatabase();
-
       Cursor cursor = db.rawQuery("SELECT * FROM ZAMETKI WHERE SDELKAIDD = " + ID, null); 
       
       while (cursor.moveToNext()) {
-        listzametki.add(
-            new ZAMETKI(cursor.getString(1),"","","Дата: "+cursor.getString(3), "", ""));
-                
-       
+        listzametki.add(new ZAMETKI(cursor.getString(1),"","","Дата: "+cursor.getString(3), "", "")); 
+        idArrayZametki.add(cursor.getString(0));
       }
       
-      final ListView ListViewZAMETKI = (ListView)rootView.findViewById(R.id.ListViewZAMETKI);
-     
-     //LayoutParams lp = (LayoutParams) ListViewZAMETKI.getLayoutParams();
-    // lp.height = 500;
-    // ListViewZAMETKI.setLayoutParams(lp);
+      //final ListView ListViewZAMETKI = (ListView)rootView.findViewById(R.id.ListViewZAMETKI);
+      //final ZAMETKIdialogListAdapter Zadapter = new ZAMETKIdialogListAdapter(getActivity(), listzametki);
+      ListViewZAMETKI.setAdapter(Zadapter);
+      SetDListView.SetDynamicHeight(ListViewZAMETKI);
       
-      
-      ZAMETKIdialogListAdapter adapter = new ZAMETKIdialogListAdapter(getActivity(), listzametki);
-      ListViewZAMETKI.setAdapter(adapter);
-      SetDListView.SetDynamicHeight(ListViewZAMETKI,getActivity());
+      Zadapter.notifyDataSetChanged();
 
       ListViewZAMETKI.setOnItemClickListener(
           new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                
+                final String selectedIDzametka = idArrayZametki.get(position).toString();
               
-              
-              
-              
+                AlertDialog.Builder editzametkabuilder = new AlertDialog.Builder(container. getContext());
+
+                View dialogView = inflater.inflate(R.layout.alertdialog_edit_zametka, null); //важно - inflater определен в начале кода фрагмента
+
+                editzametkabuilder.setCancelable(false);
+
+                // Привязка xml-разметки окна диалогов
+                editzametkabuilder.setView(dialogView);
+                
+                
+                Button btn_positive = (Button) dialogView.findViewById(R.id.dialog_positive_btn);
+                Button btn_negative = (Button) dialogView.findViewById(R.id.dialog_negative_btn);
+                Button btn_del = (Button) dialogView.findViewById(R.id.dialog_del_btn);
+                Button btn_del_go = (Button) dialogView.findViewById(R.id.dialog_del_btn_go);
+                final EditText DialogEditZametkaName = (EditText)dialogView.findViewById(R.id.dialogadd_zametka_name);
+                final EditText DialogEditZametkaOpisanie = (EditText)dialogView.findViewById(R.id.dialogadd_zametka_opisanie);
+                final EditText DialogEditZametkaData = (EditText)dialogView.findViewById(R.id.dialogadd_zametka_data);
+                
+                SQLiteDatabase db=DB.getReadableDatabase();   
+                Cursor cursor = db.rawQuery("SELECT * FROM ZAMETKI WHERE ID = " + selectedIDzametka, null); 
+                cursor.moveToNext(); //без этого exception 
+    
+                DialogEditZametkaName.setText(cursor.getString(1));
+                DialogEditZametkaOpisanie.setText(cursor.getString(2));
+                DialogEditZametkaData.setText(cursor.getString(3));
+
+                // Создание диалога
+                final AlertDialog editzametkadialog = editzametkabuilder.create();
+
+               
+                btn_positive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Dismiss the alert dialog
+                        
+                        
+                        try {
+             
+                String Zname=DialogEditZametkaName.getText().toString();
+                String Zopisanie= DialogEditZametkaOpisanie.getText().toString();
+                String Zdata=DialogEditZametkaData.getText().toString();
+                
+                DB.ChangeZAMETKA(selectedIDzametka, Zname,Zopisanie,ID,Zdata);
+                
+                
+             
+             listzametki.clear();
+             idArrayZametki.clear();
+             
+             Toast.makeText(getActivity(),"Заметка успешно изменена",Toast.LENGTH_LONG).show();
+             
+             SQLiteDatabase db = DB.getReadableDatabase();
+             Cursor cursor = db.rawQuery("SELECT * FROM ZAMETKI WHERE SDELKAIDD = " + ID, null); 
+      
+             while (cursor.moveToNext()) {
+             listzametki.add(new ZAMETKI(cursor.getString(1),"","","Дата: "+cursor.getString(3), "", "")); 
+             idArrayZametki.add(cursor.getString(0));
+             
+             Zadapter.notifyDataSetChanged();
+             SetDListView.SetDynamicHeight(ListViewZAMETKI);
+             
+             }
+      
+             
+      
+     
+             
+             } 
+            catch (SQLException mSQLException) {
+            Toast.makeText(getActivity(),mSQLException.toString(),Toast.LENGTH_LONG).show();
             }
-          });
+           
+                        editzametkadialog.cancel();
+                       
+                    }
+                });
+
+               
+                btn_negative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Dismiss/cancel the alert dialog
+                        //dialog.cancel();
+                        editzametkadialog.dismiss();
+                        //Toast.makeText(getContext(),"No button clicked", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                
+                
+                
+                btn_del.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Dismiss/cancel the alert dialog
+                        //dialog.cancel();
+                        
+                        btn_del_go.setVisibility(View.VISIBLE);
+                        
+                        btn_del_go.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    
+                    DB.DelZAMETKA(selectedIDzametka);
+                    
+                    listzametki.clear();
+                    idArrayZametki.clear();
+             
+             Toast.makeText(getActivity(),"Заметка успешно удалена",Toast.LENGTH_LONG).show();
+             
+             SQLiteDatabase db = DB.getReadableDatabase();
+             Cursor cursor = db.rawQuery("SELECT * FROM ZAMETKI WHERE SDELKAIDD = " + ID, null); 
+      
+             
+             while (cursor.moveToNext()) {
+             listzametki.add(new ZAMETKI(cursor.getString(1),"","","Дата: "+cursor.getString(3), "", "")); 
+             idArrayZametki.add(cursor.getString(0));} 
+             
+             Zadapter.notifyDataSetChanged();
+             SetDListView.SetDynamicHeight(ListViewZAMETKI);
+             btn_del_go.setVisibility(View.GONE);
+             editzametkadialog.dismiss();
+                         }
+                         });
+                        
+                        
+                        
+                        
+                        
+                       
+                    }
+                });
+
+                editzametkadialog.show();
+            }
+        });
+              
+              
+      db.close();
+      
 
     } catch (CursorIndexOutOfBoundsException CursorException) {
       Toast.makeText(getActivity(), CursorException.toString(), Toast.LENGTH_LONG).show();
     }
+    
+    
     // =================КОНЕЦ СЕКЦИИ ЗАПОЛНЕНИЯ СТРАНИЦЫ ДАННЫМИ ИЗ БД (РАЗДЕЛ ЗАМЕТКИ)=================
     
-    
+   
 
     
     Button DBsaveSdelka = (Button) rootView.findViewById(R.id.buttonaddsdelka);
@@ -781,6 +920,9 @@ public class fragment_edit_sdelka extends Fragment {
             }
           }
         });
+        
+        
+        
 
     // =================СЕКЦИИ ДИАЛОГОВ ВЫБОРА================
 
@@ -792,53 +934,60 @@ public class fragment_edit_sdelka extends Fragment {
 
             try {
 
-              AlertDialog.Builder builderSingle = new AlertDialog.Builder(container.getContext());
-              // builderSingle.setIcon(R.drawable.ic_launcher);
-              builderSingle.setTitle("Выбрать контрагента:");
-              final ArrayAdapter<String> arrayAdapter =
-                  new ArrayAdapter<String>(
-                      container.getContext(), android.R.layout.select_dialog_singlechoice);
-              final ArrayList idArray1 = new ArrayList();
-              SQLiteDatabase db = DB.getReadableDatabase();
-              String[] dbcolumns = new String[] {"SOKRNAME", "INN", "BANKNAME", "ID"};
-              Cursor cursor = db.query("KONTRAGENTI", dbcolumns,null,null,null,null,null); // запрос из базы реквизитов
+            final ArrayList<Sdelki> listkontragenti = new ArrayList<Sdelki>();
+   
+            
+            AlertDialog.Builder selectkontragentbuilder = new AlertDialog.Builder(container. getContext());
+            selectkontragentbuilder.setCancelable(false);
+            View dialogView = inflater.inflate(R.layout.alertdialog_select_sdelka, null); //важно - inflater определен в начале кода фрагмента
+            // Привязка xml-разметки окна диалогов
+            selectkontragentbuilder.setView(dialogView);
+            
+            final Button btn_negative = (Button) dialogView.findViewById(R.id.dialog_negative_btn);
+            final Button btn_neutral = (Button) dialogView.findViewById(R.id.dialog_neutral_btn);
+            final ListView ListViewKontragenti = (ListView)dialogView.findViewById(R.id.ListViewSDELKI);
+            TextView Zagolovok=(TextView) dialogView.findViewById(R.id.Zagolovok);
+            Zagolovok.setText("Выберите контрагента:");
+            btn_neutral.setText("Без контрагента");
 
-              while (cursor.moveToNext()) {
-                arrayAdapter.add(
-                    cursor.getString(0)+ " (ИНН "+ cursor.getString(1)+ ", БАНК "+ cursor.getString(2) + ")");
-                idArray1.add(cursor.getString(3)); // добавить в отдельный массив ID
-              }
+         //   final ArrayList idArray1 = new ArrayList();
+            SQLiteDatabase db = DB.getReadableDatabase();
+            String[] dbcolumns = new String[] {"SOKRNAME", "BANKNAME", "INN", "ID"};
 
-              builderSingle.setNegativeButton(
-                  "Отмена",
-                  new DialogInterface.OnClickListener() {
+            Cursor cursor = db.query("KONTRAGENTI", dbcolumns, null, null, null, null, null); // запрос из базы реквизитов
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                      dialog.dismiss();
-                    }
-                  });
-
-              builderSingle.setAdapter(
-                  arrayAdapter,
-                  new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                      String strName = arrayAdapter.getItem(which);
-                      final String selectedID1 = idArray1.get(which).toString();
-                      AlertDialog.Builder builderInner = new AlertDialog.Builder(container.getContext());
-                      builderInner.setMessage(strName);
-                      builderInner.setTitle("Выбран элемент:");
-                      builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                              dialog.dismiss();
-                              
-
-                             // =================СЕКЦИЯ ЗАПОЛНЕНИЯ РАЗДЕЛА КОНТРАГЕНТЫ ДАННЫМИ ИЗ БД=================
+     
+            while (cursor.moveToNext()) {
+            listkontragenti.add(new Sdelki(
+                cursor.getString(0),
+                "БАНК: " + cursor.getString(1),
+                "ИНН: " + cursor.getString(2),
+                cursor.getString(3)));
+       
+      }
+      
+            final SdelkiListAdapter arrayAdapter = new SdelkiListAdapter(getActivity(), listkontragenti); 
+ 
+            ListViewKontragenti.setAdapter(arrayAdapter);
+            arrayAdapter.notifyDataSetChanged();
+            final AlertDialog selectkontragentdialog = selectkontragentbuilder.create();
+            SetDListView.SetDynamicHeight(ListViewKontragenti);
+      
+            selectkontragentdialog.show();
+            
+      
+      
+            ListViewKontragenti.setOnItemClickListener(
+          new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+            
+            
+            final String selectedID1 = listkontragenti.get(position).getidnumber().toString();
+            
+              // =================СЕКЦИЯ ЗАПОЛНЕНИЯ РАЗДЕЛА КОНТРАГЕНТЫ ДАННЫМИ ИЗ БД=================
                               try {
+                              
                                 SQLiteDatabase db1 = DB.getReadableDatabase();
                                 Cursor cursor = db1.rawQuery("SELECT * FROM KONTRAGENTI WHERE ID = " + selectedID1, null);
                                 cursor.moveToNext(); // без этого exception
@@ -863,6 +1012,8 @@ public class fragment_edit_sdelka extends Fragment {
                                 KontragentEmail.setText(cursor.getString(18));
                                 KontragentSite.setText(cursor.getString(19));
                                 KontragentOtvetstvennij.setText(cursor.getString(20));
+                                
+                                db1.close();
 
                               } catch (CursorIndexOutOfBoundsException CursorException) {
                                 Toast.makeText(
@@ -873,22 +1024,64 @@ public class fragment_edit_sdelka extends Fragment {
                               }
 
                               // =================КОНЕЦ СЕКЦИЯ ЗАПОЛНЕНИЯ РАЗДЕЛА КОНТРАГЕНТЫ ДАННЫМИ ИЗ БД=================
-
-                            }
-                          });
-                      builderInner.show();
+                              
+             selectkontragentdialog.dismiss();
+           } 
+          });
+          
+          
+          btn_negative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        
+                        selectkontragentdialog.dismiss();
+                       
                     }
-                  });
-              builderSingle.create();
-              builderSingle.show();
+                });
+                
+                btn_neutral.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        KontragentFullName.setText("");
+                                KontragentSokrName.setText("");
+                                KontragentINN.setText("");
+                                KontragentKPP.setText("");
+                                KontragentOGRN.setText("");
+                                KontragentBankName.setText("");
+                                KontragentBankBIK.setText("");
+                                KontragentBankKS.setText("");
+                                KontragentBankRS.setText("");
+                                KontragentRukDolzhn.setText("");
+                                KontragentVlice.setText("");
+                                KontragentFIOruk.setText("");
+                                KontragentUrAddr.setText("");
+                                KontragentFaktAddr.setText("");
+                                KontragentPostAddr.setText("");
+                                KontragentPhone.setText("");
+                                KontragentMobile.setText("");
+                                KontragentEmail.setText("");
+                                KontragentSite.setText("");
+                                KontragentOtvetstvennij.setText("");
+                        selectkontragentdialog.dismiss();
+                    }
+                });
+          
+          
 
-            } catch (SQLException mSQLException) {
-              Toast.makeText(getActivity(), mSQLException.toString(), Toast.LENGTH_LONG).show();
-            }
-          }
-        });
-        
-        
+    } 
+    
+      catch (CursorIndexOutOfBoundsException CursorException) {
+      Toast.makeText(getActivity(), CursorException.toString(), Toast.LENGTH_LONG).show();
+    }
+    
+    
+    
+}});
+
+              
+              
+              
+            
         
         
 
@@ -897,54 +1090,62 @@ public class fragment_edit_sdelka extends Fragment {
           @Override
           public void onClick(View v) {
 
-            try {
+          try {
 
-              AlertDialog.Builder builderSingle = new AlertDialog.Builder(container.getContext());
-              // builderSingle.setIcon(R.drawable.ic_launcher);
-              builderSingle.setTitle("Выбрать свою организацию:");
-              final ArrayAdapter<String> arrayAdapter =
-                  new ArrayAdapter<String>(
-                      container.getContext(), android.R.layout.select_dialog_singlechoice);
-              final ArrayList idArray2 = new ArrayList();
-              SQLiteDatabase db = DB.getReadableDatabase();
-              String[] dbcolumns = new String[] {"SOKRNAME", "INN", "BANKNAME", "ID"};
-              Cursor cursor = db.query("MYFIRMREKVIZITI", dbcolumns,null,null,null,null,null); // запрос из базы реквизитов
+            final ArrayList<Sdelki> listmyorg = new ArrayList<Sdelki>();
+   
+            
+            AlertDialog.Builder selectmyorgbuilder = new AlertDialog.Builder(container. getContext());
+            selectmyorgbuilder.setCancelable(false);
+            View dialogView = inflater.inflate(R.layout.alertdialog_select_sdelka, null); //важно - inflater определен в начале кода фрагмента
+            // Привязка xml-разметки окна диалогов
+            selectmyorgbuilder.setView(dialogView);
+            
+            final Button btn_negative = (Button) dialogView.findViewById(R.id.dialog_negative_btn);
+            final Button btn_neutral = (Button) dialogView.findViewById(R.id.dialog_neutral_btn);
+            final ListView ListViewKontragenti = (ListView)dialogView.findViewById(R.id.ListViewSDELKI);
+            TextView Zagolovok=(TextView) dialogView.findViewById(R.id.Zagolovok);
+            Zagolovok.setText("Выберите свою организацию:");
+            btn_neutral.setText("Без своей организации");
 
-              while (cursor.moveToNext()) {
-                arrayAdapter.add(
-                    cursor.getString(0)+ " (ИНН "+ cursor.getString(1)+ ", БАНК "+ cursor.getString(2) + ")");
-                idArray2.add(cursor.getString(3)); // добавить в отдельный массив ID
-              }
+         //   final ArrayList idArray1 = new ArrayList();
+            SQLiteDatabase db = DB.getReadableDatabase();
+            String[] dbcolumns = new String[] {"SOKRNAME", "BANKNAME", "INN", "ID"};
 
-              builderSingle.setNegativeButton(
-                  "Отмена",
-                  new DialogInterface.OnClickListener() {
+            Cursor cursor = db.query("MYFIRMREKVIZITI", dbcolumns, null, null, null, null, null); // запрос из базы реквизитов
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                      dialog.dismiss();
-                    }
-                  });
-
-              builderSingle.setAdapter(
-                  arrayAdapter,
-                  new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                      String strName = arrayAdapter.getItem(which);
-                      final String selectedID2 = idArray2.get(which).toString();
-                      AlertDialog.Builder builderInner = new AlertDialog.Builder(container.getContext());
-                      builderInner.setMessage(strName);
-                      builderInner.setTitle("Выбран элемент:");
-                      builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                              dialog.dismiss();
-
-                              // =================СЕКЦИЯ ЗАПОЛНЕНИЯ РАЗДЕЛА КОНТРАГЕНТЫ ДАННЫМИ ИЗ БД=================
+     
+            while (cursor.moveToNext()) {
+            listmyorg.add(new Sdelki(
+                cursor.getString(0),
+                "БАНК: " + cursor.getString(1),
+                "ИНН: " + cursor.getString(2),
+                cursor.getString(3)));
+       
+      }
+      
+            final SdelkiListAdapter arrayAdapter = new SdelkiListAdapter(getActivity(), listmyorg); 
+ 
+            ListViewKontragenti.setAdapter(arrayAdapter);
+            arrayAdapter.notifyDataSetChanged();
+            final AlertDialog selectmyorgdialog = selectmyorgbuilder.create();
+            SetDListView.SetDynamicHeight(ListViewKontragenti);
+      
+            selectmyorgdialog.show();
+            
+      
+      
+            ListViewKontragenti.setOnItemClickListener(
+          new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+            
+            
+            final String selectedID2 = listmyorg.get(position).getidnumber().toString();
+            
+              // =================СЕКЦИЯ ЗАПОЛНЕНИЯ РАЗДЕЛА КОНТРАГЕНТЫ ДАННЫМИ ИЗ БД=================
                               try {
+                              
                                 SQLiteDatabase db1 = DB.getReadableDatabase();
                                 Cursor cursor = db1.rawQuery("SELECT * FROM MYFIRMREKVIZITI WHERE ID = " + selectedID2, null);
                                 cursor.moveToNext(); // без этого exception
@@ -968,7 +1169,8 @@ public class fragment_edit_sdelka extends Fragment {
                                 MyMobile.setText(cursor.getString(17));
                                 MyEmail.setText(cursor.getString(18));
                                 MySite.setText(cursor.getString(19));
-                                //MyOtvetstvennij.setText(cursor.getString(20));
+                                
+                                db1.close();
 
                               } catch (CursorIndexOutOfBoundsException CursorException) {
                                 Toast.makeText(
@@ -979,20 +1181,61 @@ public class fragment_edit_sdelka extends Fragment {
                               }
 
                               // =================КОНЕЦ СЕКЦИЯ ЗАПОЛНЕНИЯ РАЗДЕЛА КОНТРАГЕНТЫ ДАННЫМИ ИЗ БД=================
-
-                            }
-                          });
-                      builderInner.show();
+                              
+             selectmyorgdialog.dismiss();
+           } 
+          });
+          
+          
+          btn_negative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        
+                        selectmyorgdialog.dismiss();
+                       
                     }
-                  });
-              builderSingle.create();
-              builderSingle.show();
+                });
+                
+                btn_neutral.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                                MyFullName.setText("");
+                                MySokrName.setText("");
+                                MyINN.setText("");
+                                MyKPP.setText("");
+                                MyOGRN.setText("");
+                                MyBankName.setText("");
+                                MyBankBIK.setText("");
+                                MyBankKS.setText("");
+                                MyBankRS.setText("");
+                                MyRukDolzhn.setText("");
+                                MyVlice.setText("");
+                                MyFIOruk.setText("");
+                                MyUrAddr.setText("");
+                                MyFaktAddr.setText("");
+                                MyPostAddr.setText("");
+                                MyPhone.setText("");
+                                MyMobile.setText("");
+                                MyEmail.setText("");
+                                MySite.setText("");
+                                
+                        selectmyorgdialog.dismiss();
+                    }
+                });
+          
+          db.close();
 
-            } catch (SQLException mSQLException) {
-              Toast.makeText(getActivity(), mSQLException.toString(), Toast.LENGTH_LONG).show();
-            }
-          }
-        });
+    } 
+    
+      catch (CursorIndexOutOfBoundsException CursorException) {
+      Toast.makeText(getActivity(), CursorException.toString(), Toast.LENGTH_LONG).show();
+    }
+    
+    
+    
+}});
+
+
 
     //=================КОНЕЦ СЕКЦИИ ДИАЛОГОВ ВЫБОРА================
     
@@ -1006,32 +1249,44 @@ public class fragment_edit_sdelka extends Fragment {
             public void onClick(View v) {
             
            
+            
             addel = new AlertDialog.Builder(container. getContext());
-            addel.setTitle("Удалить сделку из базы?");
             addel.setCancelable(true);
-            addel.setNegativeButton("Не удалять",
-                 new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                     dialog.cancel();
-                     }
-                    }); 
-                     
-                     addel.setPositiveButton("Удалить",  
-                 new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    
+            View dialogView = inflater.inflate(R.layout.alertdialog_delete, null); //важно - inflater определен в начале кода фрагмента
+            // Привязка xml-разметки окна диалогов
+            addel.setView(dialogView);
+            final AlertDialog deldialog = addel.create();
+             
+            final Button btn_negative = (Button) dialogView.findViewById(R.id.dialog_negative_btn);
+            final Button btn_positive = (Button) dialogView.findViewById(R.id.dialog_positive_btn);
+            TextView Zagolovok=(TextView) dialogView.findViewById(R.id.Zagolovok);
+            Zagolovok.setText("Удалить сделку и все связанные документы из базы?");
+            
+            btn_negative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        
+                        deldialog.cancel();
+                       
+                    }
+                });
+                
+                btn_positive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        
                      DB.DelSdelka(ID);
               
                      Toast.makeText(getActivity(),"Сделка и все связанные документы успешно удалены из базы",Toast.LENGTH_LONG).show();
-            
+                     deldialog.cancel();
                      MainActivity rootActivity = (MainActivity)getActivity(); 
                      rootActivity.sdelkiclose();
-                     }
-                     }) ;
-                     
+                       
+                    }
+                });
+                    
              
-             addel.show();
-            
+             deldialog.show();
             
             } 
             } );
@@ -1081,6 +1336,7 @@ public class fragment_edit_sdelka extends Fragment {
                 
              
              listzametki.clear();
+             idArrayZametki.clear();
              
              Toast.makeText(getActivity(),"Заметка успешно добавлена в базу",Toast.LENGTH_LONG).show();
              
@@ -1089,19 +1345,15 @@ public class fragment_edit_sdelka extends Fragment {
              Cursor cursor = db.rawQuery("SELECT * FROM ZAMETKI WHERE SDELKAIDD = " + ID, null); 
       
              while (cursor.moveToNext()) {
-              listzametki.add(
-               new ZAMETKI(
-                cursor.getString(1),
-                cursor.getString(2),
-                "Дата:"+cursor.getString(3),
-                "", 
-                cursor.getString(5), 
-                cursor.getString(5)));
+             listzametki.add(new ZAMETKI(cursor.getString(1),"","","Дата: "+cursor.getString(3), "", "")); 
+             idArrayZametki.add(cursor.getString(0));} 
                 
+                Zadapter.notifyDataSetChanged();
+                
+       SetDListView.SetDynamicHeight(ListViewZAMETKI);
        
-       
-      }
-     
+      
+     db.close();
              
              } 
             catch (SQLException mSQLException) {

@@ -31,6 +31,7 @@ public class SQLiteConnect extends SQLiteOpenHelper
         onUpgrade(db, 4, DATABASE_VERSION);
         onUpgrade(db, 5, DATABASE_VERSION);
         onUpgrade(db, 6, DATABASE_VERSION);
+        db.close();
     }
 
     @Override
@@ -57,7 +58,7 @@ public class SQLiteConnect extends SQLiteOpenHelper
          db.execSQL("CREATE TABLE IF NOT EXISTS SETTINGS (ID Integer Primary Key Autoincrement NOT NULL, NAME Varchar(255), ZVALUE Varchar(1000));"); //SQL-запрос на создание БД
          
          //db.execSQL("INSERT OR REPLACE INTO SETTINGS ([ID], [NAME],[ZVALUE]) VALUES ('1','VIEWTYPE','TABLET'); ");
-        
+       
     }
 
     @Override
@@ -117,6 +118,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         String id="1";
         db.execSQL("INSERT OR REPLACE INTO MYFIRMREKVIZITI ([ID],[FULLNAME],[SOKRNAME],[INN],[KPP],[OGRN],[BANKNAME],[BANKBIK],[BANKKS],[BANKRS],[RUKDOLZHN],[VLICE],[FIORUK],[URADDR],[FACTADDR],[POSTADDR],[PHONE],[MOBILE],[EMAIL],[SITE]) VALUES ('"+id+"' , '"+ MyFullName+"' , '"+ MySokrName+"', '"+MyINN+"', '"+MyKPP+"', '"+MyOGRN+"', '"+MyBankName+"', '"+MyBankBIK+"', '"+MyBankKS+"', '"+MyBankRS+"','"+MyRukDolzhn+"', '"+MyVlice+"', '"+MyFIOruk+"', '"+MyUrAddr+"', '"+MyFaktAddr+"', '"+MyPostAddr+"', '"+MyPhone+"', '"+MyMobile+"','"+MyEmail+"','"+MySite+"'); ");
+        
+        db.close();
     }
     
     public void AddMyFirmDB(String MyFullName , String MySokrName, String MyINN, String MyKPP, String MyOGRN, String MyBankName, String MyBankBIK, String MyBankKS, String MyBankRS, String MyRukDolzhn, String MyVlice, String MyFIOruk, String MyUrAddr, String MyFaktAddr, String MyPostAddr, String MyPhone, String MyMobile, String MyEmail, String MySite)
@@ -124,6 +127,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         
         db.execSQL("INSERT OR REPLACE INTO MYFIRMREKVIZITI ([FULLNAME],[SOKRNAME],[INN],[KPP],[OGRN],[BANKNAME],[BANKBIK],[BANKKS],[BANKRS],[RUKDOLZHN],[VLICE],[FIORUK],[URADDR],[FACTADDR],[POSTADDR],[PHONE],[MOBILE],[EMAIL],[SITE]) VALUES ('"+MyFullName+"' , '"+ MySokrName+"', '"+MyINN+"', '"+MyKPP+"', '"+MyOGRN+"', '"+MyBankName+"', '"+MyBankBIK+"', '"+MyBankKS+"', '"+MyBankRS+"','"+MyRukDolzhn+"', '"+MyVlice+"', '"+MyFIOruk+"', '"+MyUrAddr+"', '"+MyFaktAddr+"', '"+MyPostAddr+"', '"+MyPhone+"', '"+MyMobile+"','"+MyEmail+"','"+MySite+"'); ");
+        
+        db.close();
     }
     
     
@@ -132,6 +137,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
        
         db.execSQL("INSERT OR REPLACE INTO MYFIRMREKVIZITI ([ID],[FULLNAME],[SOKRNAME],[INN],[KPP],[OGRN],[BANKNAME],[BANKBIK],[BANKKS],[BANKRS],[RUKDOLZHN],[VLICE],[FIORUK],[URADDR],[FACTADDR],[POSTADDR],[PHONE],[MOBILE],[EMAIL],[SITE]) VALUES ('"+ID+"' , '"+ MyFullName+"' , '"+ MySokrName+"', '"+MyINN+"', '"+MyKPP+"', '"+MyOGRN+"', '"+MyBankName+"', '"+MyBankBIK+"', '"+MyBankKS+"', '"+MyBankRS+"','"+MyRukDolzhn+"', '"+MyVlice+"', '"+MyFIOruk+"', '"+MyUrAddr+"', '"+MyFaktAddr+"', '"+MyPostAddr+"', '"+MyPhone+"', '"+MyMobile+"','"+MyEmail+"','"+MySite+"'); ");
+        
+        db.close();
     }
     
     public void DelMyFirm(String ID)
@@ -139,6 +146,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         
         db.execSQL("DELETE FROM MYFIRMREKVIZITI WHERE ID=" + ID+";");
+        db.close();
+        
     }
    
    
@@ -153,6 +162,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         
         db.execSQL("INSERT OR REPLACE INTO NORMDOC ([NAME],[OPISANIE],[PRIMECHANIE],[FILENAME]) VALUES ('"+Name+"' , '"+ Opisanie+"', '"+Primechanie+"', '"+FileName+"'); ");
+        
+        db.close();
     }
     
     
@@ -161,6 +172,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
        
         db.execSQL("INSERT OR REPLACE INTO NORMDOC ([ID], [NAME],[OPISANIE],[PRIMECHANIE],[FILENAME]) VALUES ('"+ID+"' , '"+Name+"' , '"+ Opisanie+"', '"+Primechanie+"', '"+FileName+"'); ");
+        
+        db.close();
     }
     
     public void DelNORMDOC(String ID)
@@ -168,6 +181,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         
         db.execSQL("DELETE FROM NORMDOC WHERE ID=" + ID+";");
+        
+        db.close();
     }
     
     
@@ -183,6 +198,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         
         db.execSQL("INSERT OR REPLACE INTO ZAMETKI ([NAME],[OPISANIE],[SDELKAIDD],[DATA]) VALUES ('"+Name+"' , '"+ Opisanie+"', '"+Sdelka+"', '"+Data+"'); ");
+        
+        db.close();
     }
     
     
@@ -191,6 +208,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
        
         db.execSQL("INSERT OR REPLACE INTO ZAMETKI ([ID], [NAME],[OPISANIE],[SDELKAIDD],[DATA]) VALUES ('"+ID+"' , '"+Name+"' , '"+ Opisanie+"', '"+Sdelka+"', '"+Data+"'); ");
+        
+        db.close();
     }
     
     public void DelZAMETKA(String ID)
@@ -198,6 +217,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         
         db.execSQL("DELETE FROM ZAMETKI WHERE ID=" + ID+";");
+        
+        db.close();
     }
      
      
@@ -214,6 +235,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
        SQLiteDatabase db =  this.getWritableDatabase();
         
         db.execSQL("INSERT OR REPLACE INTO KONTRAGENTI ([FULLNAME],[SOKRNAME],[INN],[KPP],[OGRN],[BANKNAME],[BANKBIK],[BANKKS],[BANKRS],[RUKDOLZHN],[VLICE],[FIORUK],[URADDR],[FACTADDR],[POSTADDR],[PHONE],[MOBILE],[EMAIL],[SITE], [OTVETSTVENNIJ]) VALUES ('"+FullName+"' , '"+ SokrName+"', '"+INN+"', '"+KPP+"', '"+OGRN+"', '"+BankName+"', '"+BankBIK+"', '"+BankKS+"', '"+BankRS+"','"+RukDolzhn+"', '"+Vlice+"', '"+FIOruk+"', '"+UrAddr+"', '"+FaktAddr+"', '"+PostAddr+"', '"+Phone+"', '"+Mobile+"','"+Email+"','"+Site+"','"+Otvetstvennij+"'); ");
+        
+        db.close();
     }
     
     public void ChangeKontragent(String ID, String FullName , String SokrName, String INN, String KPP, String OGRN, String BankName, String BankBIK, String BankKS, String BankRS, String RukDolzhn, String Vlice, String FIOruk, String UrAddr, String FaktAddr, String PostAddr, String Phone, String Mobile, String Email, String Site, String Otvetstvennij)
@@ -221,6 +244,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         
         db.execSQL("INSERT OR REPLACE INTO KONTRAGENTI ([ID],[FULLNAME],[SOKRNAME],[INN],[KPP],[OGRN],[BANKNAME],[BANKBIK],[BANKKS],[BANKRS],[RUKDOLZHN],[VLICE],[FIORUK],[URADDR],[FACTADDR],[POSTADDR],[PHONE],[MOBILE],[EMAIL],[SITE], [OTVETSTVENNIJ]) VALUES ('"+ID+"' , '"+ FullName+"' , '"+ SokrName+"', '"+INN+"', '"+KPP+"', '"+OGRN+"', '"+BankName+"', '"+BankBIK+"', '"+BankKS+"', '"+BankRS+"','"+RukDolzhn+"', '"+Vlice+"', '"+FIOruk+"', '"+UrAddr+"', '"+FaktAddr+"', '"+PostAddr+"', '"+Phone+"', '"+Mobile+"','"+Email+"','"+Site+"','"+Otvetstvennij+"'); ");
+        
+        db.close();
     }
     
     public void DelKontragent(String ID)
@@ -228,6 +253,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         
         db.execSQL("DELETE FROM KONTRAGENTI WHERE ID=" + ID+";");
+        
+        db.close();
     }
     
       
@@ -245,6 +272,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
         
      
        db.execSQL("INSERT OR REPLACE INTO SDELKI ([SDELKA_NAME], [K_FULLNAME], [K_SOKRNAME], [K_INN], [K_KPP], [K_OGRN], [K_BANKNAME], [K_BANKBIK], [K_BANKKS], [K_BANKRS], [K_RUKDOLZHN], [K_VLICE], [K_FIORUK], [K_URADDR], [K_FACTADDR], [K_POSTADDR], [K_PHONE], [K_MOBILE], [K_EMAIL], [K_SITE], [K_OTVETSTVENNIJ], [MY_FULLNAME], [MY_SOKRNAME], [MY_INN], [MY_KPP], [MY_OGRN], [MY_BANKNAME], [MY_BANKBIK], [MY_BANKKS], [MY_BANKRS], [MY_RUKDOLZHN], [MY_VLICE], [MY_FIORUK], [MY_URADDR], [MY_FACTADDR], [MY_POSTADDR], [MY_PHONE], [MY_MOBILE], [MY_EMAIL], [MY_SITE], [MY_OTVETSTVENNIJ], [SDELKA_NOMER], [DOGOVOR_DATA], [TOVAR_SROKIPOSTAVKI], [USLUGI_SROKIOKAZANIJA], [TOVAR_USLOVIJAOPLATI], [USLUGI_USLOVIJAOPLATI], [TOVAR_USLOVIJAPRIEMKI], [USLUGI_USLOVIJAPRIEMKI], [GARANTIJA_USLOVIJA], [OSOBIJE_USLOVIJA], [SUD]) VALUES ('"+SdelkaName+"' ,'"+SKontragentFullName+"' , '"+SKontragentSokrName+"' , '"+ SKontragentINN+"' , '"+ SKontragentKPP+"' , '"+ SKontragentOGRN+"' , '"+SKontragentBankName+"' , '"+SKontragentBankBIK+"' , '"+ SKontragentBankKS+"' , '"+ SKontragentBankRS+"' , '"+ SKontragentRukDolzhn+"' , '"+SKontragentVlice+"' , '"+ SKontragentFIOruk+"' , '"+ SKontragentUrAddr+"' , '"+ SKontragentFaktAddr+"' , '"+ SKontragentPostAddr+"' , '"+SKontragentPhone+"' , '"+ SKontragentMobile+"' , '"+ SKontragentEmail+"' , '"+ SKontragentSite+"' , '"+ SKontragentOtvetstvennij+"' , '"+SMyFullName+"' , '"+ SMySokrName+"' , '"+ SMyINN+"' , '"+ SMyKPP+"' , '"+ SMyOGRN+"' , '"+ SMyBankName+"' , '"+ SMyBankBIK+"' , '"+ SMyBankKS+"' , '"+SMyBankRS+"' , '"+ SMyRukDolzhn+"' , '"+ SMyVlice+"' , '"+ SMyFIOruk+"' , '"+ SMyUrAddr+"' , '"+ SMyFaktAddr+"' , '"+ SMyPostAddr+"' , '"+ SMyPhone+"' , '"+ SMyMobile+"' , '"+ SMyEmail+"' , '"+ SMySite+"' , '"+ SMyOtvetstvennij+"' , '"+NomerSdelki+"' , '"+ DataSdelki+"' , '"+ SrokiPostavkiTovarov+"' , '"+ SrokiOkazanijaUslug+"' , '"+ UslovijaOplatiTovarov+"' , '"+UslovijaOplatiUslug+"' , '"+ UslovijaPriemkiTovarov+"' , '"+ UslovijaPriemkiUslug+"' , '"+ UslovijaGarantii+"' , '"+ OsobijeUslovija+"' , '"+Sud+"'); "); //SQL-запрос на создание БД
+       
+       db.close();
     }
     
        public void ChangeSdelka (String ID, String SdelkaName,String SKontragentFullName,String SKontragentSokrName,String SKontragentINN,String SKontragentKPP, String SKontragentOGRN, String SKontragentBankName,String SKontragentBankBIK,String SKontragentBankKS,String SKontragentBankRS,String SKontragentRukDolzhn, String SKontragentVlice,String SKontragentFIOruk,String SKontragentUrAddr,String SKontragentFaktAddr,String SKontragentPostAddr,String SKontragentPhone, String SKontragentMobile, String SKontragentEmail,String SKontragentSite,String SKontragentOtvetstvennij,String SMyFullName,String SMySokrName,String SMyINN, String SMyKPP, String SMyOGRN,String SMyBankName, String SMyBankBIK, String SMyBankKS, String SMyBankRS, String SMyRukDolzhn, String SMyVlice, String SMyFIOruk, String SMyUrAddr, String SMyFaktAddr, String  SMyPostAddr, String SMyPhone, String SMyMobile, String SMyEmail, String SMySite, String SMyOtvetstvennij, String NomerSdelki, String DataSdelki, String SrokiPostavkiTovarov, String SrokiOkazanijaUslug,String UslovijaOplatiTovarov,String UslovijaOplatiUslug,String UslovijaPriemkiTovarov, String UslovijaPriemkiUslug, String UslovijaGarantii, String OsobijeUslovija, String Sud)
@@ -252,7 +281,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         
         db.execSQL("INSERT OR REPLACE INTO SDELKI ([ID], [SDELKA_NAME], [K_FULLNAME], [K_SOKRNAME],[K_INN],[K_KPP], [K_OGRN], [K_BANKNAME], [K_BANKBIK], [K_BANKKS], [K_BANKRS], [K_RUKDOLZHN], [K_VLICE], [K_FIORUK], [K_URADDR], [K_FACTADDR], [K_POSTADDR], [K_PHONE], [K_MOBILE], [K_EMAIL], [K_SITE], [K_OTVETSTVENNIJ], [MY_FULLNAME], [MY_SOKRNAME], [MY_INN], [MY_KPP], [MY_OGRN], [MY_BANKNAME], [MY_BANKBIK], [MY_BANKKS], [MY_BANKRS], [MY_RUKDOLZHN], [MY_VLICE], [MY_FIORUK], [MY_URADDR], [MY_FACTADDR], [MY_POSTADDR], [MY_PHONE], [MY_MOBILE], [MY_EMAIL], [MY_SITE], [MY_OTVETSTVENNIJ], [SDELKA_NOMER], [DOGOVOR_DATA], [TOVAR_SROKIPOSTAVKI], [USLUGI_SROKIOKAZANIJA], [TOVAR_USLOVIJAOPLATI], [USLUGI_USLOVIJAOPLATI], [TOVAR_USLOVIJAPRIEMKI], [USLUGI_USLOVIJAPRIEMKI], [GARANTIJA_USLOVIJA], [OSOBIJE_USLOVIJA], [SUD]) VALUES ('"+ID+"' ,'"+SdelkaName+"' ,'"+SKontragentFullName+"' , '"+SKontragentSokrName+"' , '"+ SKontragentINN+"' , '"+ SKontragentKPP+"' , '"+ SKontragentOGRN+"' , '"+SKontragentBankName+"' , '"+ SKontragentBankBIK+"' , '"+ SKontragentBankKS+"' , '"+ SKontragentBankRS+"' , '"+ SKontragentRukDolzhn+"' , '"+SKontragentVlice+"' , '"+ SKontragentFIOruk+"' , '"+ SKontragentUrAddr+"' , '"+ SKontragentFaktAddr+"' , '"+ SKontragentPostAddr+"' , '"+SKontragentPhone+"' , '"+ SKontragentMobile+"' , '"+ SKontragentEmail+"' , '"+ SKontragentSite+"' , '"+ SKontragentOtvetstvennij+"' , '"+SMyFullName+"' , '"+ SMySokrName+"' , '"+ SMyINN+"' , '"+ SMyKPP+"' , '"+ SMyOGRN+"' , '"+ SMyBankName+"' , '"+ SMyBankBIK+"' , '"+ SMyBankKS+"' , '"+SMyBankRS+"' , '"+ SMyRukDolzhn+"' , '"+ SMyVlice+"' , '"+ SMyFIOruk+"' , '"+ SMyUrAddr+"' , '"+ SMyFaktAddr+"' , '"+ SMyPostAddr+"' , '"+ SMyPhone+"' , '"+ SMyMobile+"' , '"+ SMyEmail+"' , '"+ SMySite+"' , '"+ SMyOtvetstvennij+"' , '"+ NomerSdelki+"' , '"+ DataSdelki+"' , '"+ SrokiPostavkiTovarov+"' , '"+ SrokiOkazanijaUslug+"' , '"+ UslovijaOplatiTovarov+"' , '"+UslovijaOplatiUslug+"' , '"+ UslovijaPriemkiTovarov+"' , '"+ UslovijaPriemkiUslug+"' , '"+ UslovijaGarantii+"' , '"+ OsobijeUslovija+"' , '"+Sud+"'); "); //SQL-запрос на создание БД
-        
+       
+       db.close();
     }
     
     public void DelSdelka(String ID)
@@ -260,6 +290,8 @@ public class SQLiteConnect extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         
         db.execSQL("DELETE FROM SDELKI WHERE ID=" + ID+";");
+        
+        db.close();
     }
     
         

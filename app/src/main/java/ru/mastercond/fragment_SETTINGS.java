@@ -103,6 +103,7 @@ public class fragment_SETTINGS extends Fragment {
       
     }
     
+    db.close();
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {
@@ -127,6 +128,7 @@ public class fragment_SETTINGS extends Fragment {
     //Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
     if (result.equals("TABLET")) { ButtonPlanshet.setChecked(true);}
     if (result.equals("PHONE")) { ButtonPhone.setChecked(true);}
+    db.close();
     
      } 
      
@@ -150,12 +152,14 @@ public class fragment_SETTINGS extends Fragment {
                     SQLiteDatabase db=DB.getReadableDatabase();   
                     db.execSQL("INSERT OR REPLACE INTO SETTINGS ([ID],[NAME],[ZVALUE]) VALUES ('1','VIEWTYPE','TABLET');"); 
                     //Toast.makeText(getActivity(),"РЕЖИМ ПЛАНШЕТА",Toast.LENGTH_LONG).show();
+                    db.close();
                     break;
                 case R.id.radio_smartphone:
                     DB1 = new SQLiteConnect(getActivity());
                     SQLiteDatabase db1=DB1.getReadableDatabase();   
                     db1.execSQL("INSERT OR REPLACE INTO SETTINGS ([ID],[NAME],[ZVALUE]) VALUES ('1','VIEWTYPE','PHONE');"); 
                     //Toast.makeText(getActivity(),"РЕЖИМ ТЕЛЕФОНА",Toast.LENGTH_LONG).show();
+                    db1.close();
                     break;
                 
 

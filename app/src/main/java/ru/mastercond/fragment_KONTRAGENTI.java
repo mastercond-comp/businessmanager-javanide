@@ -118,6 +118,8 @@ public class fragment_KONTRAGENTI extends Fragment {
       
     }
     
+    db.close();
+    
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {
@@ -172,6 +174,8 @@ public class fragment_KONTRAGENTI extends Fragment {
               sdelkaid.setSdelkaID((list.get(position)).getidnumber()); 
             }
           });
+          
+          db.close();
 
     } catch (CursorIndexOutOfBoundsException CursorException) {
       Toast.makeText(getActivity(), CursorException.toString(), Toast.LENGTH_LONG).show();

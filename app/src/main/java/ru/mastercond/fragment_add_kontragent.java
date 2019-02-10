@@ -23,7 +23,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.SQLException;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
-import android.content.Context;
 
 
 
@@ -100,6 +99,8 @@ public class fragment_add_kontragent extends Fragment {
      fragRoot.setLayoutParams(param);
       
     }
+    
+    db.close();
     
      } 
      

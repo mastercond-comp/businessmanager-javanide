@@ -84,7 +84,7 @@
         android:id="@+id/dialog_negative_btn"
         style="@style/ButtonPAGE"
         android:layout_marginLeft="17dp"
-        android:text="Отмена"
+        android:text=" Отмена"
         />
         
 </LinearLayout>

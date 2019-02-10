@@ -132,6 +132,8 @@ public class fragment_add_myfirm extends Fragment {
       
     }
     
+    db.close();
+    
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {

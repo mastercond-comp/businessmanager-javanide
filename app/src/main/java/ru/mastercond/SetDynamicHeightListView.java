@@ -26,7 +26,7 @@ import android.util.Log;
 public class SetDynamicHeightListView {
 
 
-public void SetDynamicHeight (ListView listView, Context context) {
+public void SetDynamicHeight (ListView listView) {
 ListAdapter listAdapter = listView.getAdapter();
     if (listAdapter == null) {
     return;
@@ -45,7 +45,7 @@ for (int i = 0; i < listAdapter.getCount(); i++) {
 }
 ViewGroup.LayoutParams params = listView.getLayoutParams();
 //params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-params.height = Math.round((totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1))) / context.getResources().getDisplayMetrics().density);
+params.height = Math.round(totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1))) ;
 //Log.d("ru.mastercond", " ЗНАЧЕНИЯ LISTVIEW ДЛЯ ОТЛАДКИ - TotalHeight: " + String.valueOf(totalHeight) + ", Density: " + String.valueOf(context.getResources().getDisplayMetrics().density) + ", ParamsHeight: "+String.valueOf(params. height));
 listView.setLayoutParams(params);
 //listView.requestLayout();

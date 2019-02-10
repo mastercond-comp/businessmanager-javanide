@@ -117,6 +117,7 @@ public class fragment_NORMDOC extends Fragment {
       
     }
     
+    db.close();
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {
@@ -180,6 +181,9 @@ public class fragment_NORMDOC extends Fragment {
               sdelkaid.setSdelkaID((list.get(position)).getidnumber()); 
             }
           });
+          
+          db.close();
+          
 
     } catch (CursorIndexOutOfBoundsException CursorException) {
       Toast.makeText(getActivity(), CursorException.toString(), Toast.LENGTH_LONG).show();

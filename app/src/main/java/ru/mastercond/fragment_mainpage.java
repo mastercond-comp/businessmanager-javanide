@@ -138,7 +138,7 @@ public class fragment_mainpage extends Fragment {
      
       
     }
-    
+    db.close();
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {
@@ -203,6 +203,8 @@ public class fragment_mainpage extends Fragment {
               sdelkaid.setSdelkaID((list.get(position)).getidnumber()); 
             }
           });
+          
+          db.close();
 
     } catch (CursorIndexOutOfBoundsException CursorException) {
       Toast.makeText(getActivity(), CursorException.toString(), Toast.LENGTH_LONG).show();
@@ -267,6 +269,8 @@ public class fragment_mainpage extends Fragment {
               
             }
           });
+          
+         db.close();
 
     } catch (CursorIndexOutOfBoundsException CursorException) {
       Toast.makeText(getActivity(), CursorException.toString(), Toast.LENGTH_LONG).show();
@@ -315,7 +319,10 @@ public class fragment_mainpage extends Fragment {
               sdelkaid.setSdelkaID((listsdelki.get(position)).getidnumber()); 
             }
           });
-
+          
+          
+     db.close();
+     
     } catch (CursorIndexOutOfBoundsException CursorException) {
       Toast.makeText(getActivity(), CursorException.toString(), Toast.LENGTH_LONG).show();
     }
@@ -363,6 +370,8 @@ public class fragment_mainpage extends Fragment {
               sdelkaid.setSdelkaID((listsdelki1.get(position)).getidnumber()); 
             }
           });
+          
+          db.close();
 
     } catch (CursorIndexOutOfBoundsException CursorException) {
       Toast.makeText(getActivity(), CursorException.toString(), Toast.LENGTH_LONG).show();

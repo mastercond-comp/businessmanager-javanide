@@ -109,6 +109,8 @@ public class fragment_ZAMETKI extends Fragment {
       
     }
     
+    db.close();
+    
      } 
      
      catch (CursorIndexOutOfBoundsException CursorException) {
@@ -174,6 +176,8 @@ public class fragment_ZAMETKI extends Fragment {
               
             }
           });
+
+     db.close();
 
     } catch (CursorIndexOutOfBoundsException CursorException) {
       Toast.makeText(getActivity(), CursorException.toString(), Toast.LENGTH_LONG).show();
